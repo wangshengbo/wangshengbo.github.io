@@ -1,281 +1,92 @@
+
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html>
 <head>
-
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="format-detection" content="telephone=no" />
-<meta name="author" content="Oliver" />
-
-
-    
-    
-
-
-<meta property="og:type" content="website">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>Oliver&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="Oliver's Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="Oliver's Blog">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oliver's Blog">
-
-<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
-
-
-    <link rel="alternate" href="/atom.xml" title="Oliver&#39;s Blog" type="application/atom+xml">
-
-
-
-    <link rel="shortcut icon" href="/img/me.png">
-
-
-
-    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
-
-
-
-    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-
-
-
-    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-
-    <style> .article { opacity: 0;} </style>
-
-
-<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-
-
-<title>Oliver&#39;s Blog</title>
-
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-
-<script>
-    var yiliaConfig = {
-        fancybox: true,
-        animate: true,
-        isHome: true,
-        isPost: false,
-        isArchive: false,
-        isTag: false,
-        isCategory: false,
-        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: undefined
-    }
-</script>
-
-
-    <script> yiliaConfig.jquery_ui = [false]; </script>
-
-
-
-    <script> yiliaConfig.rootUrl = "\/";</script>
-
-
-
-
-
+  
+    <link rel="alternative" href="/atom.xml" title="Oliver&#39;s Blog" type="application/atom+xml">
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+  
 
 </head>
+
 <body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/me.png" class="animated zoomIn">
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">Oliver</a></h1>
-        </hgroup>
-
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <nav id="upper-nav" class="inner">
+      <a id="main-nav-toggle" class="nav-icon"></a>
+      <div class="sub-nav">
         
-
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-
-
         
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
+          <a id="nav-github" class="nav-icon" href="https://github.com/myname"></a>
         
-
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/archives/">所有文章</a></li>
-                        
-                            <li><a href="/tags/随笔">随笔</a></li>
-                        
-                            <li><a href="/tags/">标签云</a></li>
-                        
-                            <li><a href="/about/">关于我</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" href="mailto:3236447030@qq.com" title="Email"></a>
-                            
-                                <a class="fa 新浪微博" href="http://weibo.com/3085177867/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="新浪微博"></a>
-                            
-                                <a class="fa GitHub" href="https://github.com/wangshengbo" title="GitHub"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
-                    
-                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
-                    
-                    </div>
-                </section>
-                
-
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">专注于前端</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>                
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Oliver</a></h1>
       </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/me.png" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">Oliver</a></h1>
-            </hgroup>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                    <li><a href="/tags/随笔">随笔</a></li>
-                
-                    <li><a href="/tags/">标签云</a></li>
-                
-                    <li><a href="/about/">关于我</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:3236447030@qq.com" title="Email"></a>
-                            
-                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/3085177867/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="新浪微博"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/wangshengbo" title="GitHub"></a>
-                            
-                        </ul>
-            </nav>
-        </header>                
+    </nav>
+    <div id="header-title">
+      
+        <h1 id="blog-title-wrap">
+          <a href="/" id="blog-title">My Blog</a>
+        </h1>
+      
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
-</nav>
-      <div class="body-wrap">
+    <div id="contenedor">
+      <ul class="cube">
+        <li class="cara">MyLogo</li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+        <li class="cara"></li>
+      </ul>
+    </div>
+    <nav id="main-nav">
+      
+        <a class="main-nav-link" href="/">Home</a>
+      
+        <a class="main-nav-link" href="/archives">Archives</a>
+      
+        <a class="main-nav-link" href="/about">About</a>
+      
+      <a class="main-nav-link st-search-show-outputs">Search</a>
+    </nav>
+  </div>
+</header>
+
+    <div class="outer">
+      <section id="main">
   
     <article id="post-OSI安全体系" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/19/OSI安全体系/" class="article-date">
-      <time datetime="2016-10-19T13:40:27.799Z" itemprop="datePublished">2016-10-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
+  <div class="article-meta">
+    <h3 href="/2016/10/19/OSI安全体系/" class="article-date">
+  <time datetime="2016-10-19T13:40:27.799Z" itemprop="datePublished">2016-10-19</time>
+</h3>
     
-      <input type="hidden" class="isFancy" />
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
     
     
       <header class="article-header">
@@ -287,55 +98,64 @@
   
 
       </header>
-      
     
     <div class="article-entry" itemprop="articleBody">
       
-          
-              最近整理了一下OSI安全体系的相关知识。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+        
+        <h2 id="OSI参考模型"><a href="#OSI参考模型" class="headerlink" title="OSI参考模型"></a>OSI参考模型</h2><p>由下至上：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。</p>
+<h2 id="安全服务"><a href="#安全服务" class="headerlink" title="安全服务"></a>安全服务</h2><ol>
+<li>鉴别服务</li>
+<li>访问控制服务</li>
+<li>数据保密性服务</li>
+<li>数据完整性服务</li>
+<li>抗抵赖服务<h2 id="特定安全机制"><a href="#特定安全机制" class="headerlink" title="特定安全机制"></a>特定安全机制</h2></li>
+<li>加密</li>
+<li>数字签名</li>
+<li>访问控制</li>
+<li>数据完整性</li>
+<li>认证交换</li>
+<li>业务流填充<br>在应用连接空闲时，持续发送伪随机序列，使攻击者不知道哪些是有用信息，从而抵抗业务流量分析攻击。</li>
+<li>路由选择控制<br>选择物理上安全的子网络、中继站或链路。</li>
+<li>公证<br>由第三方公证人提供对通信数据的完整性、原发、时间和目的地等进行确保。<h2 id="普遍安全机制"><a href="#普遍安全机制" class="headerlink" title="普遍安全机制"></a>普遍安全机制</h2></li>
+<li>可信功能度机制<br>可信功能度用来度量扩充其他安全机制的范围或建立这些安全机制的有效性。任何功能度，只要它是直接提供安全机制，或提供对安全机制的访问，都应该是可信的。</li>
+<li>安全标记机制<br>对某一资源制定安全标记，明显或隐含。</li>
+<li>事件检测机制</li>
+<li>安全审计跟踪机制</li>
+<li>安全恢复<h2 id="安全管理"><a href="#安全管理" class="headerlink" title="安全管理"></a>安全管理</h2></li>
+<li>与OSI有关的安全管理<br>系统安全管理、安全服务管理、安全机制管理</li>
+<li>OSI管理的安全<br>管理的功能和通信的安全。</li>
+</ol>
+<hr>
+<p>内容来源：《网络攻防技术教程——从原理到实践》（第一版）杜晔 张大伟 范艳芳 编著 武汉大学出版社</p>
 
       
-      
-        <p class="article-more-link">
-          <a href="/2016/10/19/OSI安全体系/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="http://yoursite.com/2016/10/19/OSI安全体系/" data-id="cj85l72h20000gcqyge58a84j" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
   </div>
   
 </article>
 
 
 
-
-
-
-
-
-
   
     <article id="post-知道创宇研发技能表v3.1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/19/知道创宇研发技能表v3.1/" class="article-date">
-      <time datetime="2016-10-19T13:13:24.885Z" itemprop="datePublished">2016-10-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
+  <div class="article-meta">
+    <h3 href="/2016/10/19/知道创宇研发技能表v3.1/" class="article-date">
+  <time datetime="2016-10-19T13:13:24.885Z" itemprop="datePublished">2016-10-19</time>
+</h3>
     
-      <input type="hidden" class="isFancy" />
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
     
     
       <header class="article-header">
@@ -347,55 +167,40 @@
   
 
       </header>
-      
     
     <div class="article-entry" itemprop="articleBody">
       
-          
-              知道创宇研发技能表v3.1链接
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+        
+        <p><a href="http://blog.knownsec.com/Knownsec_RD_Checklist/#" target="_blank" rel="external">知道创宇研发技能表原文链接</a></p>
 
       
-      
-        <p class="article-more-link">
-          <a href="/2016/10/19/知道创宇研发技能表v3.1/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="http://yoursite.com/2016/10/19/知道创宇研发技能表v3.1/" data-id="cj85l72h90001gcqyeq2sabbt" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
   </div>
   
 </article>
 
 
 
-
-
-
-
-
-
   
     <article id="post-安全工程师职位要求" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/19/安全工程师职位要求/" class="article-date">
-      <time datetime="2016-10-19T13:13:14.307Z" itemprop="datePublished">2016-10-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
+  <div class="article-meta">
+    <h3 href="/2016/10/19/安全工程师职位要求/" class="article-date">
+  <time datetime="2016-10-19T13:13:14.307Z" itemprop="datePublished">2016-10-19</time>
+</h3>
     
-      <input type="hidden" class="isFancy" />
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
     
     
       <header class="article-header">
@@ -407,55 +212,111 @@
   
 
       </header>
-      
     
     <div class="article-entry" itemprop="articleBody">
       
-          
-              最近整理了一下各大招聘网站上的安全工程师的职位要求，从理论到技术，从软件到硬件，还包括百度、阿里和知道创宇等公司的职位要求。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+        
+        <p>（本职位要求来源于各大招聘网站，并进行整理，不断更新中）</p>
+<h2 id="理论与技术"><a href="#理论与技术" class="headerlink" title="理论与技术"></a>理论与技术</h2><ul>
+<li>精通计算机网络，具备网络故障的分析、判断、解决能力；</li>
+<li>精通网络安全技术:包括端口、服务漏洞扫描、程序漏洞分析检测、权限管理、入侵和攻击分析追踪、网站渗透、病毒木马防范等；</li>
+<li>精通php/shell/perl/python/c/c++ 等至少一种语言;<h2 id="应用与系统"><a href="#应用与系统" class="headerlink" title="应用与系统"></a>应用与系统</h2></li>
+<li>熟悉windows或linux系统</li>
+<li>熟练运用server2008、2012等对服务器进行维护与管理；</li>
+<li>了解主流网络安全产品(如fw、ids、scanner、audit等)的配置及使用;<h2 id="硬件与设备"><a href="#硬件与设备" class="headerlink" title="硬件与设备"></a>硬件与设备</h2></li>
+<li>熟悉主流路由器及核心交换及防火墙配置管理、监测；</li>
+<li>精通LAN/WAN网络规划及建设，精通局域网的维护，可熟练进行局域网的搭建；</li>
+<li>了解常见网络设备（包括网络安全设备）的工作原理、网络设备的基本维护和故障处理；</li>
+<li>熟悉和掌握各种计算机软硬件，可独立进行安装、调试及故障排除；</li>
+</ul>
+<hr>
+<p><strong><em>百度安全工程师校园招聘</em></strong></p>
+<p><strong>工作职责:</strong></p>
+<ul>
+<li>参与安全漏洞跟进处理、安全事件与0Day应急响应，及时感知/挖掘安全风险</li>
+<li>参与公司整体及云计算、大数据、互联网金融等重点业务的安全策略与规范的制定，结合安全技术与运营推动人员安全意识提升和安全风险的缓解，参与安全运营平台化</li>
+<li>参与公司各业务，尤其是金融、云计算、大数据、移动等方向业务的安全设计评审、安全测试与评估</li>
+<li>参与公司（云）安全产品的设计、维护、及核心能力的持续提升，比如漏洞云扫描、云WAF、基于大数据的多层入侵监控与威胁感知、代码与环境安全质量控制等</li>
+<li>参与对公司内部、重点业务（如云计算）相关的渗透测试，参与研究漏洞挖掘及利用技术，为不断完善提升公司安全防御及云安全服务能力提供技术驱动力</li>
+</ul>
+<p><strong>职责要求:</strong></p>
+<ul>
+<li>具备基本的计算机技术基础（基本网络协议、基本编程能力）</li>
+<li>有漏洞挖掘或代码安全审计经验</li>
+<li>有渗透测试经验（熟悉典型漏洞的发现与利用）</li>
+<li>具备基本的安全漏洞修复与攻击防御知识</li>
+<li>追求卓越，不甘平庸，具备强烈的事业心和开拓创新精神</li>
+<li>优秀的沟通能力以及团队合作精神</li>
+<li>有下列相关经验者优先：<br>  有大型互联网企业实习经验者优先；<br>  有专注于漏洞挖掘与利用技术研究者优先；<br>  有大型互联网渗透经验者优先。</li>
+</ul>
+<hr>
+<p><strong><em>阿里安全工程师校园招聘</em></strong></p>
+<p><strong>岗位描述</strong></p>
+<p>从web安全到底层系统安全，<br>从客户端安全到无线产品安全，<br>从安全规范制定到实时应急响应，<br>一切的努力都为了更安全！</p>
+<p><strong>岗位要求</strong></p>
+<ul>
+<li>熟识计算机网络，具备Linux环境下C/C++开发能力，至少掌握perl/python/shell一种脚本语言；如果你熟知web安全，了解当前流行的web漏洞（XSS, SQL Injection, CSRF, etc），了解java开发框架（Struts,spring,ibatis,hibernate,etc）； </li>
+<li>具备windows客户端安全攻防的经验，或了解Android/iOS无线客户端安全； </li>
+<li>了解Linux系统管理和网络管理相关操作，了解Linux系统的安全漏洞，有Linux exploit code/shellcode编写经验； </li>
+<li>熟悉TCP/IP协议栈和路由交换原理，熟悉企业级服务器安全；</li>
+</ul>
+<hr>
+<p><strong><em>知道创宇404安全研究员</em></strong></p>
+<p><strong>岗位职责：</strong></p>
+<ol>
+<li>国内外安全技术的跟进和重现，包括：操作系统安全漏洞、WEB应用安全漏洞、IoT类设备安全漏洞</li>
+<li>根据自身研究方向研究系统原理和漏洞原理</li>
+<li>为公司安全产品提供代码级技术原型支持</li>
+<li>对业界目前的攻击和防御办法进行研究和跟踪，研究新的攻击和防御方法</li>
+</ol>
+<p><strong>职位要求：</strong></p>
+<ol>
+<li>具备一些漏洞研究的能力，能够理解漏洞原理</li>
+<li>对于安全技术有深厚的兴趣，并且希望投入主要精力进行跟进和研究</li>
+<li>有编程思维，C/C++、python、java、ruby或其他脚本编程语言至少一种，通过一定时间的工作积累可以写一些辅助测试工具</li>
+<li>对各类领域的新技术感兴趣，善用Google，愿意花时间阅读E文文档</li>
+<li>具有良好的沟通能力、协调能力、理解能力，并拥有强烈的责任心和团队管理能力，能承受一定强度的工作压力</li>
+<li>喜欢研究安全技术，愿意花大量时间完成某项安全测试</li>
+<li>能够深入到操作系统底层理解漏洞为加分项</li>
+</ol>
+<hr>
+<p><strong><em>知道创宇安全研究员（实习）</em></strong></p>
+<p><strong>职位要求：</strong><br>1.至少精通一门脚本语言；<br>2.熟习各种Web安全攻防手法；<br>3.精通WEB应用程序渗透测试方法和定制攻击自动化；<br>4.深入理解OWASP风险评估中前十位Web攻击模式和评估方法；<br>5.知道如何跟踪最新的Web安全信息动态；<br>6.善于挖掘Web安全漏洞或有安全工具开发经验者优先；<br>7.对Web安全有浓厚的兴趣和较强的独自钻研能力，有良好的团队精神。</p>
+<hr>
+<p><strong><em>知道创宇前端安全研究员（实习）</em></strong></p>
+<p><strong>岗位职责</strong><br>1、对主流浏览器进行前端漏洞挖掘<br>2、对主流Web系统进行前端漏洞挖掘</p>
+<p><strong>职位要求</strong><br>1、擅长Linux/Unix系统操作，以Linux/Mac作为工作平台<br>2、熟悉JavaScript、Jquery等，能够独立编写漏洞利用程序<br>3、掌握JavaScript及IE、Safari、Chrome、FireFox、Thunder Bird、Opera等主流浏览器，能够有针对性的进行XSS、ClickJacking和CSRF</p>
+<p><strong>优先条件</strong><br>1、有实战经验者优先。<br>2、在著名白帽子类网站发表过严重的信息安全漏洞<br>3、在各类信息安全大会上有过个人主题演讲<br>4、在各类信息安全攻防类大赛上获得过集体或个人奖项</p>
+<hr>
 
       
-      
-        <p class="article-more-link">
-          <a href="/2016/10/19/安全工程师职位要求/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="http://yoursite.com/2016/10/19/安全工程师职位要求/" data-id="cj85l72i50005gcqyqahwq93v" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
   </div>
   
 </article>
 
 
 
-
-
-
-
-
-
   
     <article id="post-漏洞扫描" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/19/漏洞扫描/" class="article-date">
-      <time datetime="2016-10-19T13:12:57.867Z" itemprop="datePublished">2016-10-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
+  <div class="article-meta">
+    <h3 href="/2016/10/19/漏洞扫描/" class="article-date">
+  <time datetime="2016-10-19T13:12:57.867Z" itemprop="datePublished">2016-10-19</time>
+</h3>
     
-      <input type="hidden" class="isFancy" />
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
     
     
       <header class="article-header">
@@ -467,55 +328,55 @@
   
 
       </header>
-      
     
     <div class="article-entry" itemprop="articleBody">
       
-          
-              整理了一些漏洞扫描的基本概念和方法
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+        
+        <h2 id="漏洞扫描方法"><a href="#漏洞扫描方法" class="headerlink" title="漏洞扫描方法"></a>漏洞扫描方法</h2><ol>
+<li>在端口扫描后得知目标主机操作系统类型、开启的端口以及端口上的网络服务，将这些相关信息与网络漏洞扫描系统提供的漏洞裤进行匹配，查看是否有满足匹配条件的漏洞存在</li>
+<li>通过模拟黑客的攻击手法，对目标主机系统进行攻击性的安全漏洞扫描，如测试弱口令等。若模拟攻击成功，则表明目标主机系统存在安全漏洞。</li>
+</ol>
+<h2 id="漏洞扫描的分类"><a href="#漏洞扫描的分类" class="headerlink" title="漏洞扫描的分类"></a>漏洞扫描的分类</h2><p>扫描对象：</p>
+<ol>
+<li>基于网络的扫描<br>从外部攻击者的角度对网络及系统架构进行的扫描，主要用于查找网络服务和协议中的漏洞。基于网络的漏洞扫描工具根据不同漏洞的特性，构造网络数据包，发给网络中的一个或多个目标服务器，以判断某个特定的漏洞是否存在。</li>
+<li>基于主机的扫描<br>从一个内部用户的角度来检测操作系统级的漏洞（主要用于检测注册表和用户配置中的漏洞）。扫描器通常在目标系统上安装一个代理或服务，以便能够访问所有的文件与进程。优势在于能直接获取主机操作系统的底层细节（如特殊服务和配置的细节等），缺点在于需要先控制目标主机并安装检测工具。</li>
+</ol>
+<p>扫描方式：</p>
+<ol>
+<li>主动扫描<br>给目标主机发送特定的包并收集回应包来取得相关信息。优势：快速获取信息，准确性高。缺点：易于被发现，难掩盖扫描痕迹，突破防火墙比较困难。</li>
+<li>被动扫描<br>通过监听网络包来取得信息。优势：难以被检测，不易受防火墙影响。缺点：速度慢，准确性差，目标不产生网络流量时无法获得信息。</li>
+</ol>
+<hr>
+<p>内容来源：《网络攻防技术教程——从原理到实践》（第一版）杜晔 张大伟 范艳芳 编著 武汉大学出版社</p>
 
       
-      
-        <p class="article-more-link">
-          <a href="/2016/10/19/漏洞扫描/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="http://yoursite.com/2016/10/19/漏洞扫描/" data-id="cj85l72hz0003gcqyxthbnlp4" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
   </div>
   
 </article>
 
 
 
-
-
-
-
-
-
   
     <article id="post-网络嗅探" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/19/网络嗅探/" class="article-date">
-      <time datetime="2016-10-19T13:12:21.089Z" itemprop="datePublished">2016-10-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
+  <div class="article-meta">
+    <h3 href="/2016/10/19/网络嗅探/" class="article-date">
+  <time datetime="2016-10-19T13:12:21.089Z" itemprop="datePublished">2016-10-19</time>
+</h3>
     
-      <input type="hidden" class="isFancy" />
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
     
     
       <header class="article-header">
@@ -527,55 +388,72 @@
   
 
       </header>
-      
     
     <div class="article-entry" itemprop="articleBody">
       
-          
-              整理了一些网络嗅探方面的基本概念和方法
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+        
+        <h2 id="嗅探器Sniffer"><a href="#嗅探器Sniffer" class="headerlink" title="嗅探器Sniffer"></a>嗅探器Sniffer</h2><p>Sniffer是利用计算机的网络接口截获目的地为其他计算机数据报文的一种工具，可以用来监视网络的状态、数据流动情况以及网络上传输的信息。</p>
+<ul>
+<li>FTP、Telnet、SMTP、POP等协议使用明文传输数据。</li>
+<li>局域网可分为共享式局域网与交换式局域网。</li>
+<li>共享式局域网使用集线器（Hub），工作在物理层，把一个端口接收到的信号向所有其他端口分发。</li>
+<li>交换式局域网使用交换机（Switch），能够检查数据包中的目标物理地址来选择目标端口，从而将数据只转发到与该目标端口相连的主机或设备中。</li>
+<li>Sniffer只能抓取一个物理网段内的包，你和监听的目标中间不能有路由或其他屏蔽广播包的设备。</li>
+<li>Sniffer分为硬件和软件两种，软件Sniffer无法抓取网络上所有的传输。<h2 id="对共享式网络的嗅探"><a href="#对共享式网络的嗅探" class="headerlink" title="对共享式网络的嗅探"></a>对共享式网络的嗅探</h2>Sniffer将网卡的工作模式由正常改变为混杂模式，就可以对所有监听到的数据帧都产生一个硬件中断并提交给主机进行处理。设置混杂模式可能需要root权限。<h2 id="对交换式网络的嗅探"><a href="#对交换式网络的嗅探" class="headerlink" title="对交换式网络的嗅探"></a>对交换式网络的嗅探</h2></li>
+<li>ARP欺骗<br> 1.Windows中使用arp -a命令查看ARP缓存表。<br> 2.在动态ARP实现中，任何ARP响应分组都可以刷新ARP缓存表中的记录，而不管这个ARP分组是否是对一个ARP请求分组的应答。<br> 3.如果要欺骗整个网络，伪造包的目的MAC地址改为FF:FF:FF:FF:FF:FF；目的IP地址改为FF:FF:FF:FF；源IP地址改为网关的IP，源MAC地址仍为本机地址，同时欺骗网关，并做好数据包的转发。</li>
+<li>交换机MAC地址表溢出<br>地址表是MAC地址——交换机端口转换表，地址表大小有上限，溢出之后交换机会广播所有数据包。此时相当于集线器，网络变为共享式。</li>
+<li>MAC地址伪造<br>若交换机转发表是动态更新，并采用牛奶策略。攻击者不断发送数据包，并把源MAC地址改为攻击目标的地址，从而不断更新交换机转发表。</li>
+<li>ICMP重定向攻击<br>ICMP重定向包用来告诉机器向另一个不同的路由器（或机器）发送它的数据包。除了路由器的主机必须服从ICMP重定向。<h2 id="嗅探器的检测与防范"><a href="#嗅探器的检测与防范" class="headerlink" title="嗅探器的检测与防范"></a>嗅探器的检测与防范</h2></li>
+</ul>
+<p><strong>主动检测</strong></p>
+<ul>
+<li>ARP广播地址探测<br>在混乱模式时，网卡检测收到包的目的以太网的第一个八位组值，若是0xFF，则认为是广播地址。因此发送一个目的地址为FF-00-00-00-00-00的ARP包，如果某主机以自己的MAC地址回应这个包，那么它运行在混杂模式下。</li>
+<li>ping方法<br>向可疑主机发送包含正确IP地址和错误MAC地址的Ping包，如果回应，则该主机在运行嗅探器程序。</li>
+<li>DNS方法（不懂……）<br>一些嗅探器在收到一个网络请求时，就会执行DNS反向查询，试着将IP地址解释为主机名。因此，如果你在网络中执行一个Ping扫描或者Pinging一个不存在的IP地址，就会触发这种活动。如果得到了回应，就说明网络中安装有网络嗅探器，如果没有收到任何回应，表明没有嗅探器在运行。</li>
+<li>源路径方法<br>这种方法在IP头中配置源路由信息,可以用于其它临近网段,具体步骤如下:<br>①设A为可疑主机,B为检测主机,C为同一网段的另一台主机,C不具有转发功能。<br>②B发送数据给A,设置为必须经过C。<br>③如果能接收到数据的响应信息,那么查看TTL值域,如果不变,说明A运行嗅探器程序。<br>B发给A的数据事实上发给C,由于C不具有转发功能,所以数据不能到达A,但是由于A运行了嗅探器程序,所以才能接收到数据。</li>
+<li>诱骗方法</li>
+<li>网络带宽出现反常</li>
+<li>网络通信丢包率高</li>
+<li>等待时间方法<br>这种方法在网络中发送大量数据,这对设置在非混杂模式的机器没有影响,但是对运行嗅探器程序的机器有影响。特别是用于口令的语法分析应用层协议。只要在未发送数据之前以及发送数据之后PING主机,对比两次的响应时间差别就可以检测。这种方法很有效,不过可能明显降低网络性能。</li>
+<li>使用检测工具Anti-sniff等</li>
+</ul>
+<p><strong>被动防范</strong></p>
+<ul>
+<li>安全的拓扑结构</li>
+<li>会话加密</li>
+<li>使用静态的ARP或者IP-MAC对应表</li>
+</ul>
+<hr>
+<p>内容来源：《网络攻防技术教程——从原理到实践》（第一版）杜晔 张大伟 范艳芳 编著 武汉大学出版社</p>
 
       
-      
-        <p class="article-more-link">
-          <a href="/2016/10/19/网络嗅探/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="http://yoursite.com/2016/10/19/网络嗅探/" data-id="cj85l72i10004gcqy5ze2gv0d" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
   </div>
   
 </article>
 
 
 
-
-
-
-
-
-
   
     <article id="post-不积跬步，无以至千里" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/25/不积跬步，无以至千里/" class="article-date">
-      <time datetime="2016-09-25T08:09:51.162Z" itemprop="datePublished">2016-09-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
+  <div class="article-meta">
+    <h3 href="/2016/09/25/不积跬步，无以至千里/" class="article-date">
+  <time datetime="2016-09-25T08:09:51.162Z" itemprop="datePublished">2016-09-25</time>
+</h3>
     
-      <input type="hidden" class="isFancy" />
+  </div>
+  <div class="article-inner">
+  <div class="curve-down">
+  <div class="fill-content">
     
     
       <header class="article-header">
@@ -587,129 +465,131 @@
   
 
       </header>
-      
     
     <div class="article-entry" itemprop="articleBody">
       
-          
-              这个周末解锁了好多新成就，第一次搭建个人博客…第一次使用Hexo…第一次使用MarkDown…
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+        
+        <p>这个周末解锁了好多新成就，第一次搭建个人博客…第一次使用Hexo…第一次使用MarkDown…不过这些成就早就该解锁了，这些计划已经写下了很久了。作为一名计算机专业的大学生，读研之后才有了自己的博客，对自己的拖延癌症晚期深刻的检讨一下……说真的，域名买了好久，到现在才真正能够访问，而且自己一直想做的个人主页还没有雏形……之前数次想行动，到最终还是搁置了下来。</p>
+<p>零零碎碎学了各种各样的知识，开发、系统、安全等等。无论是编程语言还是系统模型，到最后要用到的时候还是无法回忆起具体的内容，其他同学心中烂熟的概念我还没建立起来。可能是我的记忆力确实差吧，再加上没有深入的实践和应用。所以必须要把自己学到的点点滴滴的知识记录整理下来，慢慢的积累，方便自己随时查看并纠正自己之前的错误。这也是搭建个人博客的初衷所在。</p>
+<p>之前的设想是自己从头写一个完整的博客系统，最后实践时才发现是多么的困难，而且写出能用的博客系统不知道要哪年哪月，主要是自己真的菜……所以图省事采用了Hexo和Github Pages来搭建博客，也想尽快能够使用博客。现在博客系统还有许多需要修改的地方，以后慢慢的调整吧，距离自己印象中的样子差太远啦。</p>
+<p>想学的东西好多好多，想做的东西也很多，想玩的东西更多，脚踏实地吧。</p>
+<p>不积跬步，无以至千里，想在信息安全的路上走的再远一点。</p>
 
       
-      
-        <p class="article-more-link">
-          <a href="/2016/09/25/不积跬步，无以至千里/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
+    <footer class="article-footer">
+      <div class="article-footer-content">
+        
+        <a data-url="http://yoursite.com/2016/09/25/不积跬步，无以至千里/" data-id="cj85l72hc0002gcqyyqocigve" class="article-share-link">Share</a>
+        
+      </div>
+    </footer>
+  </div>
+  </div>
   </div>
   
 </article>
 
 
 
-
-
-
-
-
-
   
   
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                <i class="fa fa-copyright"></i> 
-                2016 Oliver
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
-            </div>
-        </div>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
         
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>| </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
+          <li>
+            <a href="/2016/10/19/OSI安全体系/">OSI安全体系</a>
+          </li>
         
+          <li>
+            <a href="/2016/10/19/知道创宇研发技能表v3.1/">知道创宇研发技能表v3.1</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/19/安全工程师职位要求/">安全工程师职位要求</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/19/漏洞扫描/">漏洞扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/19/网络嗅探/">网络嗅探</a>
+          </li>
+        
+      </ul>
     </div>
-</footer>
-    </div>
-    
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 5;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
-
-
-
-
-
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
-</div>
-<script>
-    // Open in New Window
-    
-        var oOpenInNew = {
-            
-            
-            
-            
-            
-            
-             archives: ".archive-article-title", 
-             miniArchives: "a.post-list-link", 
-            
-             friends: "#js-friends a", 
-             socail: ".social a" 
-        }
-        for (var x in oOpenInNew) {
-            $(oOpenInNew[x]).attr("target", "_blank");
-        }
-    
-</script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
   </div>
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Oliver<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/sun11/hexo-theme-paperbox" target="_blank">Paperbox</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+  <a href="#search" class="mobile-nav-link st-search-show-outputs">Search</a>
+</nav>
+  
+
+<!-- totop start -->
+<div id="totop">
+	<a title="To Top"></a>
+</div>
+<!-- totop end -->
+
+<!-- swiftype search start -->
+
+<!-- swiftype search end -->
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/lrsjng.jquery-qrcode/0.12.0/jquery.qrcode.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+</div>
 </body>
 </html>

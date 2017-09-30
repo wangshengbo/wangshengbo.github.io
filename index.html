@@ -98,52 +98,20 @@ if (isWX) {
     
     <div class="article-entry" itemprop="articleBody">
       
-        
         <hr>
-<p>title: 笔试编程题注意事项<br>date: 2017-09-30<br>tags:<br>-找工作</p>
-<h2 id="comments-true"><a href="#comments-true" class="headerlink" title="comments: true"></a>comments: true</h2><h2 id="牛客网编程题注意事项"><a href="#牛客网编程题注意事项" class="headerlink" title="牛客网编程题注意事项"></a>牛客网编程题注意事项</h2><h4 id="Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"><a href="#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误" class="headerlink" title="Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"></a>Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误</h4><p>A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理</p>
-<h6 id="C语言代码"><a href="#C语言代码" class="headerlink" title="C语言代码"></a>C语言代码</h6><pre><code>#include &lt;stdio.h&gt;
-int main() {
-    int a,b;
-    while(scanf(&quot;%d %d&quot;,&amp;a, &amp;b) != EOF)
-    printf(&quot;%d&quot;,a+b);
-    return 0;
-}
-</code></pre><h6 id="JAVA代码"><a href="#JAVA代码" class="headerlink" title="JAVA代码"></a>JAVA代码</h6><pre><code>import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-/*
- * 使用循环输入输出处理一次多组测试，记得在循环内清空数组、map、set等
- * 注意输出结果的行末空格！！输出完全后要换行
- * 注意算法时间复杂度
- */
-public class Main {
-    public static void main(String[] args)throws IOException {
-        Main main = new Main();
-        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
-        String str;
-        while ((str = scanner.readLine()) != null) {        //循环处理输入
-            String[] strings = str.split(&quot; &quot;);
-            main.name();
-            for (String string : strings) {
-                System.out.println(string);
-            }
-        }
-    }
-    public void name() {       //除了输入输出以外的处理逻辑都放在方法里
-    }
-}
-</code></pre><h4 id="Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误"><a href="#Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误" class="headerlink" title="Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误"></a>Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误</h4><p>A: 因为Java文件名和类名需要保持一致。<br>1、如果编程题已经提供了类和要编写代码的方法，请不要擅自给方法加上static，也不要擅自修改类的名字。也不要给代码增加任何package信息。<br>2、对于没有提供任何辅助代码的编程题，请确认类的名字是Main</p>
-<h4 id="Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"><a href="#Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时" class="headerlink" title="Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"></a>Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时</h4><p>A:牛客网对每个编程题的运行时间都有限制，一般是限制在1秒，牛客网后台判题的机器显然不如的你的台式机强劲，所以碰到超时请尽量优化你的代码效率。当然也有可能是你代码对某个测试用例死循环了</p>
-<h4 id="Q-为什么代码会提示答案正确（提交异常）"><a href="#Q-为什么代码会提示答案正确（提交异常）" class="headerlink" title="Q:为什么代码会提示答案正确（提交异常）"></a>Q:为什么代码会提示答案正确（提交异常）</h4><p>A:这种情况代码本题你的结果是已AC，但是有点小问题：<br>1、牛客网对提交的代码会做相似度的判断，如果发现你的代码通过的测试用例同时和已有代码相似度过高则会给出答案正确（提交异常）的提示<br>2、根据题目的难易程度会对通过代码的提交频率进行控制，如果你提交通过代码的间隔太小，我们也认为有作弊可能，也会提示提交异常</p>
-<h4 id="Q-运行错误是什么情况"><a href="#Q-运行错误是什么情况" class="headerlink" title="Q:运行错误是什么情况"></a>Q:运行错误是什么情况</h4><p>A:运行错误一般都是数组越界非法访问，野指针乱访问，空指针乱访问等情况造成代码奔溃</p>
-
+<p>title: 笔试编程题注意事项<br>date: 2017-09-30<br>tags:</p>
+<h2 id="找工作"><a href="#找工作" class="headerlink" title="-找工作"></a>-找工作</h2><h2 id="牛客网编程题注意事项"><a href="#牛客网编程题注意事项" class="headerlink" title="牛客网编程题注意事项"></a>牛客网编程题注意事项</h2><h4 id="Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"><a href="#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误" class="headerlink" title="Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"></a>Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误</h4><p>A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理<br>
+        
+          <p class="article-more-link">
+            <a href="/2017/09/30/笔试编程题注意事项/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
       <div class="article-footer-content">
         
-        <a data-url="http://wangshengbo.me/2017/09/30/笔试编程题注意事项/" data-id="cj86pkfhg0000x4qysbx2c1qq" class="article-share-link">Share</a>
+        <a data-url="http://wangshengbo.me/2017/09/30/笔试编程题注意事项/" data-id="cj86pkfhg0000x4qysbx2c1qq" class="article-share-link">分享到</a>
         
       </div>
     </footer>
@@ -191,7 +159,7 @@ public class Main {
     <footer class="article-footer">
       <div class="article-footer-content">
         
-        <a data-url="http://wangshengbo.me/2016/10/19/OSI安全体系/" data-id="cj85v840g0000f0qyh9a4a3ym" class="article-share-link">Share</a>
+        <a data-url="http://wangshengbo.me/2016/10/19/OSI安全体系/" data-id="cj85v840g0000f0qyh9a4a3ym" class="article-share-link">分享到</a>
         
       </div>
     </footer>
@@ -236,7 +204,7 @@ public class Main {
     <footer class="article-footer">
       <div class="article-footer-content">
         
-        <a data-url="http://wangshengbo.me/2016/10/19/知道创宇研发技能表v3.1/" data-id="cj85v840q0005f0qydelo6317" class="article-share-link">Share</a>
+        <a data-url="http://wangshengbo.me/2016/10/19/知道创宇研发技能表v3.1/" data-id="cj85v840q0005f0qydelo6317" class="article-share-link">分享到</a>
         
       </div>
     </footer>
@@ -284,7 +252,7 @@ public class Main {
     <footer class="article-footer">
       <div class="article-footer-content">
         
-        <a data-url="http://wangshengbo.me/2016/10/19/安全工程师职位要求/" data-id="cj85v840o0003f0qygsf1qrod" class="article-share-link">Share</a>
+        <a data-url="http://wangshengbo.me/2016/10/19/安全工程师职位要求/" data-id="cj85v840o0003f0qygsf1qrod" class="article-share-link">分享到</a>
         
       </div>
     </footer>
@@ -334,7 +302,7 @@ public class Main {
     <footer class="article-footer">
       <div class="article-footer-content">
         
-        <a data-url="http://wangshengbo.me/2016/10/19/漏洞扫描/" data-id="cj85v840p0004f0qysylyv9nw" class="article-share-link">Share</a>
+        <a data-url="http://wangshengbo.me/2016/10/19/漏洞扫描/" data-id="cj85v840p0004f0qysylyv9nw" class="article-share-link">分享到</a>
         
       </div>
     </footer>
@@ -390,7 +358,7 @@ public class Main {
     <footer class="article-footer">
       <div class="article-footer-content">
         
-        <a data-url="http://wangshengbo.me/2016/10/19/网络嗅探/" data-id="cj85v840t0006f0qyabtiryvp" class="article-share-link">Share</a>
+        <a data-url="http://wangshengbo.me/2016/10/19/网络嗅探/" data-id="cj85v840t0006f0qyabtiryvp" class="article-share-link">分享到</a>
         
       </div>
     </footer>
@@ -439,7 +407,7 @@ public class Main {
     <footer class="article-footer">
       <div class="article-footer-content">
         
-        <a data-url="http://wangshengbo.me/2016/09/25/不积跬步，无以至千里/" data-id="cj85v840l0002f0qygl78cz6y" class="article-share-link">Share</a>
+        <a data-url="http://wangshengbo.me/2016/09/25/不积跬步，无以至千里/" data-id="cj85v840l0002f0qygl78cz6y" class="article-share-link">分享到</a>
         
       </div>
     </footer>
@@ -459,7 +427,7 @@ public class Main {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recents</h3>
+    <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
         
@@ -492,7 +460,7 @@ public class Main {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li></ul>
     </div>
@@ -548,7 +516,7 @@ public class Main {
 
 <!-- totop start -->
 <div id="totop">
-	<a title="To Top"></a>
+	<a title="返回顶部"></a>
 </div>
 <!-- totop end -->
 

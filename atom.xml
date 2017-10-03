@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wangshengbo.me/"/>
-  <updated>2017-10-03T03:33:08.847Z</updated>
+  <updated>2017-10-03T08:28:10.566Z</updated>
   <id>http://wangshengbo.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>网易：游戏任务标记问题</title>
+    <link href="http://wangshengbo.me/2017/10/03/%E7%BD%91%E6%98%93%EF%BC%9A%E6%B8%B8%E6%88%8F%E4%BB%BB%E5%8A%A1%E6%A0%87%E8%AE%B0%E9%97%AE%E9%A2%98/"/>
+    <id>http://wangshengbo.me/2017/10/03/网易：游戏任务标记问题/</id>
+    <published>2017-10-03T08:26:55.309Z</published>
+    <updated>2017-10-03T08:28:10.566Z</updated>
+    
+    <content type="html"><![CDATA[<p>在牛客网刷笔试题的时候看到过这样一道题，是网易的校招笔试题，题目描述如下：</p><blockquote><p>游戏任务标记问题：<br>游戏里面有很多各式各样的任务，其中有一种任务玩家只能做一次，这类任务一共有1024个，任务ID范围[1,1024]。<br>请用32个unsigned int类型来记录着1024个任务是否已经完成。初始状态都是未完成。<br>输入两个参数，都是任务ID，需要设置第一个ID的任务为已经完成；并检查第二个ID的任务是否已经完成。<br>输出一个参数，如果第二个ID的任务已经完成输出1，如果未完成输出0。<br>如果第一或第二个ID不在[1,1024]范围，则输出-1。</p><p>输入包括一行,两个整数表示任务ID.输出是否完成<br>时间限制：1秒  空间限制：32768K</p></blockquote><p><strong>分析：</strong><br>每个无符号的int类型数据是4个字节，也就是32个bit位，那么32个无符号的int数据一共就有1024个bit位，正好对应1024个任务，每个bit位有1或0两种值，分别对应每个任务是否完成，1代表完成，0代表未完成。<br>用一个长为32的int型数组存储这32个数，如何将1024个任务分成32个组并且很快能找到每个任务对应的bit位是十分关键的，我选择使用模运算来解决这个问题。<br>若任务ID为N，则N % 32的结果（0~31）对应这个任务的完成情况存储在int数组的第几个整数里（int数组的下标，从0开始），以及在这个整数中的第几个bit位（二进制串的字符下标，从0开始）。<br>例如：N = 34的时候，34 % 32 = 2，则这个任务对应的int数组下标为2，对应这个整数的二进制串的第三个bit位。</p><p><strong>第一次AC的JAVA代码</strong></p><pre><code>public class GameMissionlabel {    private int[] MI = new int[32];    public static void main(String[] args) {        Scanner sc = new Scanner(System.in);        GameMissionlabel gameMissionlabel = new GameMissionlabel();        while (sc.hasNext()) {    //循环处理输入输出            String mission = sc.nextLine();            String[] ids = mission.split(&quot; &quot;);            int id1 = Integer.parseInt(ids[0]);            int id2 = Integer.parseInt(ids[1]);            System.out.println(gameMissionlabel.checkmission(id1, id2));        }    }    private int checkmission(int id1, int id2) {        if ((1 &lt;= id1 &amp;&amp; id1 &lt;= 1024) &amp;&amp; (1 &lt;= id2 &amp;&amp; id2 &lt;= 1024)) {            // 计算位置            int bucket1 = id1 % 32;            int bucket2 = id2 % 32;            // 将整数转换成二进制字符数组            String binaryString1 = toBinaryString(MI[bucket1]);            char[] binaryChar1 = binaryString1.toCharArray();            // 第一个任务设置成完成            binaryChar1[bucket1] = &#39;1&#39;;            // 重构二进制字符串            String binaryString1New = String.valueOf(binaryChar1);            // 将二进制字符串转换成整数，使用BigInteger是防止10000这样的串转换成int时出错            BigInteger b = new BigInteger(binaryString1New, 2);            MI[bucket1] = b.intValue();            // 判断第二个任务是否完成            String binaryString2 = toBinaryString(MI[bucket2]);            char[] binaryChar2 = binaryString2.toCharArray();            if (binaryChar2[bucket2] == &#39;0&#39;) {                return 0;            } else {                return 1;            }        } else {            return -1;        }    }    private static String toBinaryString(int num) {        String str = &quot;&quot;;        // 0x80000000对应二进制1000 0000 0000 0000 0000 0000 0000 0000        for (int i = 0x80000000; i != 0; i &gt;&gt;&gt;= 1) {            str += (num &amp; i) == 0 ? &#39;0&#39; : &#39;1&#39;;        }        return str;    }}</code></pre><p>AC之后看了一下大神们写的代码，学到了一种最快的JAVA实现方式，对int进行二进制计算直接使用位运算符，能节省很多转换的操作。另外用BufferedReader比Scanner快10倍。代码如下：</p><pre><code>public class GameMissionlabel {    public static int[] res = new int[32];    public static void main(String args[])throws Exception{        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));        String [] str = scanner.readLine().split(&quot; &quot;);        if(Integer.parseInt(str[0])&gt;1024||Integer.parseInt(str[0])&lt;1           ||Integer.parseInt(str[1])&gt;1024||Integer.parseInt(str[1])&lt;1){            System.out.println(-1);            return;        }        //1.        int pos = Integer.parseInt(str[0])%32;        int mask=1; //对应二进制为00000000 00000000 00000000 00000001        mask&lt;&lt;=(31-pos);  //将末尾的1移动至对应的位置，末尾自动补0        res[pos]|=mask;  //使用按位或运算将1存储在整数中        //2.        int pos2 = Integer.parseInt(str[1])%32;        int mask2=1;        mask2&lt;&lt;=(31-pos2);        if((res[pos2]&amp;=mask2)!=0){  //使用按位与运算判断原整数中的任务状态            System.out.println(1);        }else{            System.out.println(0);        }    }}</code></pre><p>从这道题可以看出，自己对二进制计算不是很熟悉，需要做一个专题好好学习一下</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在牛客网刷笔试题的时候看到过这样一道题，是网易的校招笔试题，题目描述如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;游戏任务标记问题：&lt;br&gt;游戏里面有很多各式各样的任务，其中有一种任务玩家只能做一次，这类任务一共有1024个，任务ID范围[1,1024]。&lt;br&gt;请用32
+      
+    
+    </summary>
+    
+    
+      <category term="编程" scheme="http://wangshengbo.me/tags/%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="二进制计算" scheme="http://wangshengbo.me/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%AE%A1%E7%AE%97/"/>
+    
+  </entry>
   
   <entry>
     <title>爬楼梯问题（Fibonacci数列）</title>
@@ -84,26 +111,6 @@
   </entry>
   
   <entry>
-    <title>笔试编程题注意事项</title>
-    <link href="http://wangshengbo.me/2017/09/30/%E7%AC%94%E8%AF%95%E7%BC%96%E7%A8%8B%E9%A2%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
-    <id>http://wangshengbo.me/2017/09/30/笔试编程题注意事项/</id>
-    <published>2017-09-29T16:00:00.000Z</published>
-    <updated>2017-10-02T08:29:46.064Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="牛客网编程题注意事项"><a href="#牛客网编程题注意事项" class="headerlink" title="牛客网编程题注意事项"></a>牛客网编程题注意事项</h2><h4 id="Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"><a href="#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误" class="headerlink" title="Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"></a>Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误</h4><p>A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理<br><a id="more"></a></p><h6 id="C语言代码"><a href="#C语言代码" class="headerlink" title="C语言代码"></a>C语言代码</h6><pre><code>#include &lt;stdio.h&gt;int main() {    int a,b;    while(scanf(&quot;%d %d&quot;,&amp;a, &amp;b) != EOF)    printf(&quot;%d&quot;,a+b);    return 0;}</code></pre><h6 id="JAVA代码"><a href="#JAVA代码" class="headerlink" title="JAVA代码"></a>JAVA代码</h6><pre><code>import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;/* * 使用循环输入输出处理一次多组测试，记得在循环内清空数组、map、set等 * 注意输出结果的行末空格！！输出完全后要换行 * 注意算法时间复杂度 */public class Main {    public static void main(String[] args)throws IOException {        Main main = new Main();        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));        String str;        while ((str = scanner.readLine()) != null) {        //循环处理输入            String[] strings = str.split(&quot; &quot;);            main.name();            for (String string : strings) {                System.out.println(string);            }        }    }    public void name() {       //除了输入输出以外的处理逻辑都放在方法里    }}</code></pre><h4 id="Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误"><a href="#Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误" class="headerlink" title="Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误"></a>Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误</h4><p>A: 因为Java文件名和类名需要保持一致。<br>1、如果编程题已经提供了类和要编写代码的方法，请不要擅自给方法加上static，也不要擅自修改类的名字。也不要给代码增加任何package信息。<br>2、对于没有提供任何辅助代码的编程题，请确认类的名字是Main</p><h4 id="Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"><a href="#Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时" class="headerlink" title="Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"></a>Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时</h4><p>A:牛客网对每个编程题的运行时间都有限制，一般是限制在1秒，牛客网后台判题的机器显然不如的你的台式机强劲，所以碰到超时请尽量优化你的代码效率。当然也有可能是你代码对某个测试用例死循环了</p><h4 id="Q-为什么代码会提示答案正确（提交异常）"><a href="#Q-为什么代码会提示答案正确（提交异常）" class="headerlink" title="Q:为什么代码会提示答案正确（提交异常）"></a>Q:为什么代码会提示答案正确（提交异常）</h4><p>A:这种情况代码本题你的结果是已AC，但是有点小问题：<br>1、牛客网对提交的代码会做相似度的判断，如果发现你的代码通过的测试用例同时和已有代码相似度过高则会给出答案正确（提交异常）的提示<br>2、根据题目的难易程度会对通过代码的提交频率进行控制，如果你提交通过代码的间隔太小，我们也认为有作弊可能，也会提示提交异常</p><h4 id="Q-运行错误是什么情况"><a href="#Q-运行错误是什么情况" class="headerlink" title="Q:运行错误是什么情况"></a>Q:运行错误是什么情况</h4><p>A:运行错误一般都是数组越界非法访问，野指针乱访问，空指针乱访问等情况造成代码奔溃</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;牛客网编程题注意事项&quot;&gt;&lt;a href=&quot;#牛客网编程题注意事项&quot; class=&quot;headerlink&quot; title=&quot;牛客网编程题注意事项&quot;&gt;&lt;/a&gt;牛客网编程题注意事项&lt;/h2&gt;&lt;h4 id=&quot;Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;a href=&quot;#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot; class=&quot;headerlink&quot; title=&quot;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;/a&gt;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&lt;/h4&gt;&lt;p&gt;A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="找工作" scheme="http://wangshengbo.me/tags/%E6%89%BE%E5%B7%A5%E4%BD%9C/"/>
-    
-  </entry>
-  
-  <entry>
     <title>根据完全二叉树的节点数计算二叉树的深度</title>
     <link href="http://wangshengbo.me/2017/09/30/%E6%A0%B9%E6%8D%AE%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/"/>
     <id>http://wangshengbo.me/2017/09/30/根据完全二叉树的节点数计算二叉树的深度/</id>
@@ -126,6 +133,26 @@
       <category term="算法" scheme="http://wangshengbo.me/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="二叉树" scheme="http://wangshengbo.me/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>笔试编程题注意事项</title>
+    <link href="http://wangshengbo.me/2017/09/30/%E7%AC%94%E8%AF%95%E7%BC%96%E7%A8%8B%E9%A2%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
+    <id>http://wangshengbo.me/2017/09/30/笔试编程题注意事项/</id>
+    <published>2017-09-29T16:00:00.000Z</published>
+    <updated>2017-10-02T08:29:46.064Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="牛客网编程题注意事项"><a href="#牛客网编程题注意事项" class="headerlink" title="牛客网编程题注意事项"></a>牛客网编程题注意事项</h2><h4 id="Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"><a href="#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误" class="headerlink" title="Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"></a>Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误</h4><p>A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理<br><a id="more"></a></p><h6 id="C语言代码"><a href="#C语言代码" class="headerlink" title="C语言代码"></a>C语言代码</h6><pre><code>#include &lt;stdio.h&gt;int main() {    int a,b;    while(scanf(&quot;%d %d&quot;,&amp;a, &amp;b) != EOF)    printf(&quot;%d&quot;,a+b);    return 0;}</code></pre><h6 id="JAVA代码"><a href="#JAVA代码" class="headerlink" title="JAVA代码"></a>JAVA代码</h6><pre><code>import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;/* * 使用循环输入输出处理一次多组测试，记得在循环内清空数组、map、set等 * 注意输出结果的行末空格！！输出完全后要换行 * 注意算法时间复杂度 */public class Main {    public static void main(String[] args)throws IOException {        Main main = new Main();        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));        String str;        while ((str = scanner.readLine()) != null) {        //循环处理输入            String[] strings = str.split(&quot; &quot;);            main.name();            for (String string : strings) {                System.out.println(string);            }        }    }    public void name() {       //除了输入输出以外的处理逻辑都放在方法里    }}</code></pre><h4 id="Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误"><a href="#Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误" class="headerlink" title="Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误"></a>Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误</h4><p>A: 因为Java文件名和类名需要保持一致。<br>1、如果编程题已经提供了类和要编写代码的方法，请不要擅自给方法加上static，也不要擅自修改类的名字。也不要给代码增加任何package信息。<br>2、对于没有提供任何辅助代码的编程题，请确认类的名字是Main</p><h4 id="Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"><a href="#Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时" class="headerlink" title="Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"></a>Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时</h4><p>A:牛客网对每个编程题的运行时间都有限制，一般是限制在1秒，牛客网后台判题的机器显然不如的你的台式机强劲，所以碰到超时请尽量优化你的代码效率。当然也有可能是你代码对某个测试用例死循环了</p><h4 id="Q-为什么代码会提示答案正确（提交异常）"><a href="#Q-为什么代码会提示答案正确（提交异常）" class="headerlink" title="Q:为什么代码会提示答案正确（提交异常）"></a>Q:为什么代码会提示答案正确（提交异常）</h4><p>A:这种情况代码本题你的结果是已AC，但是有点小问题：<br>1、牛客网对提交的代码会做相似度的判断，如果发现你的代码通过的测试用例同时和已有代码相似度过高则会给出答案正确（提交异常）的提示<br>2、根据题目的难易程度会对通过代码的提交频率进行控制，如果你提交通过代码的间隔太小，我们也认为有作弊可能，也会提示提交异常</p><h4 id="Q-运行错误是什么情况"><a href="#Q-运行错误是什么情况" class="headerlink" title="Q:运行错误是什么情况"></a>Q:运行错误是什么情况</h4><p>A:运行错误一般都是数组越界非法访问，野指针乱访问，空指针乱访问等情况造成代码奔溃</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;牛客网编程题注意事项&quot;&gt;&lt;a href=&quot;#牛客网编程题注意事项&quot; class=&quot;headerlink&quot; title=&quot;牛客网编程题注意事项&quot;&gt;&lt;/a&gt;牛客网编程题注意事项&lt;/h2&gt;&lt;h4 id=&quot;Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;a href=&quot;#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot; class=&quot;headerlink&quot; title=&quot;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;/a&gt;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&lt;/h4&gt;&lt;p&gt;A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="找工作" scheme="http://wangshengbo.me/tags/%E6%89%BE%E5%B7%A5%E4%BD%9C/"/>
     
   </entry>
   

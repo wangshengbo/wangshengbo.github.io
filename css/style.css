@@ -106,7 +106,7 @@ em {
   src: url("../iconfont/iconfont.eot?t=1478071541360#iefix") format('embedded-opentype'), url("../iconfont/iconfont.woff?t=1478071541360") format('woff'), url("../iconfont/iconfont.ttf?t=1478071541360") format('truetype'), url("../iconfont/iconfont.svg?t=1478071541360#iconfont") format('svg');
 }
 .fa {
-  font-size: 16px;
+  font-size: 20px;
   font-style: normal;
 }
 .fa:before {

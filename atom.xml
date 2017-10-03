@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wangshengbo.me/"/>
-  <updated>2017-10-03T00:59:07.512Z</updated>
+  <updated>2017-10-03T01:02:39.632Z</updated>
   <id>http://wangshengbo.me/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://wangshengbo.me/2017/10/03/Hexo%E7%94%9F%E6%88%90%E9%83%A8%E7%BD%B2%E5%8D%9A%E6%96%87%E6%97%B6%E6%8A%A5%E9%94%99YAMLException%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
     <id>http://wangshengbo.me/2017/10/03/Hexo生成部署博文时报错YAMLException的解决方法/</id>
     <published>2017-10-03T00:57:53.821Z</published>
-    <updated>2017-10-03T00:59:07.512Z</updated>
+    <updated>2017-10-03T01:02:39.632Z</updated>
     
-    <content type="html"><![CDATA[<p>大家写完博文之后准备使用Hexo生成和部署的时候可能会遇到如下错误：<br><a id="more"></a></p><pre><code>ERROR Process failed: _posts/边界安全防护学习笔记.mdYAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at line 5, column 1:    ^    at generateError (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:162:10)    at throwError (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:168:9)    at readBlockMapping (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1040:9)    at composeNode (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1326:12)    at readDocument (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1488:3)    at loadDocuments (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1544:5)    at Object.load (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1561:19)    at parseYAML (E:\wangshengbo.github.io\node_modules\hexo\node_modules\hexo-front-matter\lib\front_matter.js:80:21)    at parse (E:\wangshengbo.github.io\node_modules\hexo\node_modules\hexo-front-matter\lib\front_matter.js:56:12)    ……………………</code></pre><p>上述错误是由于博文的yaml头部格式不正确导致的，正确的头部格式如下：</p><pre><code>title: yourtitledescription: your descriptiontags:  - tag1 - tag2categories: categorie1---以下为正文</code></pre><p>头部和正文之间要使用“—-”进行分割，“—-”与头部之间要有一个空行<br>注意冒号后边要有空格，“-”符号前后都要有空格！<br>title的内容中间不能有空格！</p>]]></content>
+    <content type="html"><![CDATA[<p>大家写完博文之后准备使用Hexo生成和部署的时候可能会遇到如下错误：<br><a id="more"></a></p><pre><code>ERROR Process failed: _posts/边界安全防护学习笔记.mdYAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at line 5, column 1:    ^    at generateError (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:162:10)    at throwError (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:168:9)    at readBlockMapping (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1040:9)    at composeNode (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1326:12)    at readDocument (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1488:3)    at loadDocuments (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1544:5)    at Object.load (E:\wangshengbo.github.io\node_modules\hexo\node_modules\js-yaml\lib\js-yaml\loader.js:1561:19)    at parseYAML (E:\wangshengbo.github.io\node_modules\hexo\node_modules\hexo-front-matter\lib\front_matter.js:80:21)    at parse (E:\wangshengbo.github.io\node_modules\hexo\node_modules\hexo-front-matter\lib\front_matter.js:56:12)    ……………………</code></pre><p>上述错误是由于博文的yaml头部格式不正确导致的，正确的头部格式如下：</p><pre><code>title: yourtitledescription: your descriptiontags:  - tag1 - tag2categories: categorie1---以下为正文</code></pre><p>头部和正文之间要使用3个“-”进行分割，3个“-”与头部之间要有一个空行<br>注意冒号后边要有空格，“-”符号前后都要有空格！<br>title的内容中间不能有空格！</p>]]></content>
     
     <summary type="html">
     

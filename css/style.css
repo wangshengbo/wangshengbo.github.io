@@ -183,7 +183,7 @@ body {
   font-family: "Source Code Pro", Tahoma, "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei Light", "Microsoft YaHei", "Source Han Sans CN", "WenQuanYi Micro Hei", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 30px;
+  font-size: 14px;
   color: #333;
   width: 100%;
   height: 100%;
@@ -604,7 +604,7 @@ body {
   font-family: Source Code Pro, Monaco, Menlo, Consolas, monospace;
   color: #4d4d4c;
   background: #eee;
-  font-size: 0.95em;
+  font-size: 1.5em;
 }
 .post .post-content p a {
   color: #40759b;
@@ -650,7 +650,7 @@ body {
   font-family: Source Code Pro, Monaco, Menlo, Consolas, monospace;
   color: #4d4d4c;
   background: #eee;
-  font-size: 0.95em;
+  font-size: 1.5em;
 }
 .post .post-content ul a,
 .post .post-content ol a {

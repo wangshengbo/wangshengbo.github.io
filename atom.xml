@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wangshengbo.me/"/>
-  <updated>2017-10-03T01:02:39.632Z</updated>
+  <updated>2017-10-03T03:33:08.847Z</updated>
   <id>http://wangshengbo.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>爬楼梯问题（Fibonacci数列）</title>
+    <link href="http://wangshengbo.me/2017/10/03/%E7%88%AC%E6%A5%BC%E6%A2%AF%E9%97%AE%E9%A2%98%EF%BC%88Fibonacci%E6%95%B0%E5%88%97%EF%BC%89/"/>
+    <id>http://wangshengbo.me/2017/10/03/爬楼梯问题（Fibonacci数列）/</id>
+    <published>2017-10-03T03:31:06.378Z</published>
+    <updated>2017-10-03T03:33:08.847Z</updated>
+    
+    <content type="html"><![CDATA[<p>在牛客网刷编程题的时候，遇到了一道爬楼梯问题，问题描述如下：</p><blockquote><p>You are climbing a stair case. It takes n steps to reach to the top.<br> Each time you can either climb 1 or 2 steps.<br> In how many distinct ways can you climb to the top?</p></blockquote><p>每一次能爬1或2级台阶，那么有多少种不同的方式爬上n级台阶？</p><p><strong>分析：</strong><br>n = 1的时候，只有一种方式（1）<br>n = 2的时候，有两种方式（11,2）<br>n = 3的时候，有3种方式（111,12,21）（n = 1的结果 + n = 2的结果）<br>n = 4的时候，有5种方式（1111,22,211,121,112）（n = 3的结果 + n = 2的结果）<br>……<br>n = k的时候，有(n = k - 1的结果 + n = k - 2的结果)种方式<br>则n的结果是Fibonacci数列</p><p><strong>Java实现</strong><br>求解Fibonacci数列有两种方式，第一种是递归实现，代码如下</p><pre><code>public int fibonacci(int n) {    if (n &lt; 3) {        return n;    }    return fibonacci(n-1)+fibonacci(n-2);}</code></pre><p>递归实现的效率较差，因为很多递归的子问题都是相同的，但是却要重复计算</p><p>第二种实现方式是使用循环累加计算，代码如下</p><pre><code>public int fibonacci(int n) {    if (n &lt; 3) {        return n;    }    int a = 1;    int b=2;    for (int i = 3; i &lt;= n; i++) {        int mid = a;        a = b;        b = mid+a;    }    return b;}</code></pre><p>这种实现方式每一位结果只计算一次，最后推算出最终结果，效率较高</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在牛客网刷编程题的时候，遇到了一道爬楼梯问题，问题描述如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You are climbing a stair case. It takes n steps to reach to the top.&lt;br&gt; Each time you
+      
+    
+    </summary>
+    
+    
+      <category term="编程" scheme="http://wangshengbo.me/tags/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo生成部署博文时报错YAMLException的解决方法</title>

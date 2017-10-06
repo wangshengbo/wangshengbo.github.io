@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="王圣博的个人博客"><meta name="keywords" content="王圣博, 博客, 计算机, 编程, 安全, JAVA"><title>Java数据类型、进制和位运算学习总结 | Oliver's Blog</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Java数据类型、进制和位运算学习总结</h1><a id="logo" href="/.">Oliver's Blog</a><p class="description">根本没有正确的选择，只能靠奋斗来使当初的选择显的正确</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Java数据类型、进制和位运算学习总结</h1><div class="post-meta"><a href="/2017/10/06/Java数据类型、进制和位运算学习总结/#comments" class="comment-count"></a><p><span class="date">Oct 06, 2017</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p>Java中的基础类型有：<strong>byte</strong>、<strong>short</strong>、<strong>int</strong>、<strong>long</strong>、<strong>float</strong>、<strong>double</strong>、<strong>char</strong>和<strong>boolean</strong><br>它们可被分为四种类型，整型、浮点型、char型和boolean型</p>
+<ul>
+<li>整型：<strong>byte</strong>、<strong>short</strong>、<strong>int</strong>、<strong>long</strong> 分别占用1、2、4、8个字节的空间</li>
+<li>浮点型：<strong>float</strong>、<strong>double</strong> 分别占用4、8个字节 </li>
+<li>char型：<strong>char</strong> 占用2个字节</li>
+<li>boolean型：<strong>boolean</strong>《Java虚拟机规范》指出单独使用是4个字节，在数组中又是1个字节，但是不对应任何整数值</li>
+</ul>
+<p>每种数值类型的最大表示范围可以通过包装类的静态属性取到，比如Integer.MAX_VALUE，Integer.MIN_VALUE<br> <a href="http://blog.csdn.net/steven_oyj/article/details/4714760" target="_blank" rel="external">原文链接</a></p>
+<h2 id="进制"><a href="#进制" class="headerlink" title="进制"></a>进制</h2><p>在Java中整型数据有8进制、10进制或者16进制3种表示方法，不能直接使用2进制表示数字<br><strong>十进制</strong>：用多个0~9的数字表示，首位不能为0<br><strong>八进制</strong>：以数字0开头，后面跟多个0~7的数字。但是，当使用八进制数据表示转义字符时不能用0开头，例如：\ddd<br><strong>十六进制</strong>：以0x或0X开头，后跟多个0~9的数字或者a~f的大写或小写字母。但是，当使用十六进制数据表示转义字符时不能用0x开头，例如：\udddd<br><strong>10进制数有正负之分，但8进制和16进制只能用来表达无符号的整数</strong></p>
+<h2 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h2><p>二进制数在计算机中是以补码形式保存的，正数的原码、反码、补码都是一样的，而负数的补码是其反码加1</p>
+<h3 id="十进制与二进制的转换"><a href="#十进制与二进制的转换" class="headerlink" title="十进制与二进制的转换"></a>十进制与二进制的转换</h3><p>负整数由十进制转换为二进制的步骤为：取反，加1。例如：将-5转换为二进制的步骤如下：<br>首先，5的二进制为101，扩展到32位为00000000 00000000 00000000 00000101，取反之后为11111111 11111111 11111111 11111010，加1之后就是11111111 11111111 11111111 11111011，这就是-5的二进制表示。<br>负整数由二进制转换成十进制也是一样的步骤：取反，加1。继续用上面的例子，-5的二进制11111111 11111111 11111111 11111011取反之后为00000000 00000000 00000000 00000100，加1为00000000 00000000 00000000 00000101，这个二进制的值是5，而最初的二进制数的第一位是1，表示负数，因此转换之后是-5。<br><a href="http://aaagu1234.blog.163.com/blog/static/4009371520128206358167/" target="_blank" rel="external">原文链接</a></p>
+<h2 id="Java转换函数"><a href="#Java转换函数" class="headerlink" title="Java转换函数"></a>Java转换函数</h2><h3 id="1-十进制转其他进制"><a href="#1-十进制转其他进制" class="headerlink" title="1.十进制转其他进制"></a>1.十进制转其他进制</h3><ul>
+<li>Integer.toBinaryString(int i)返回i的二进制字符串表示</li>
+<li>Integer.toHexString(int i)返回i的十六进制字符串表示</li>
+<li>Integer.toOctalString(int i)返回i的八进制字符串表示</li>
+<li>Integer.toString(int i, int radix)返回i的radix进制表示</li>
+</ul>
+<p>代码</p>
+<pre><code>System.out.println(&quot;--二进制--&quot;);
+System.out.println(Integer.toBinaryString(20));
+System.out.println(Integer.toString(20,2));
+System.out.println(Integer.toBinaryString(-20));
+System.out.println(Integer.toString(-20,2));
+System.out.println(&quot;--八进制--&quot;);
+System.out.println(Integer.toOctalString(20));
+System.out.println(Integer.toString(20,8));
+System.out.println(Integer.toOctalString(-20));
+System.out.println(Integer.toString(-20,8));
+System.out.println(&quot;--十六进制--&quot;);
+System.out.println(Integer.toHexString(20));
+System.out.println(Integer.toString(20,16));
+System.out.println(Integer.toHexString(-20));
+System.out.println(Integer.toString(-20,16));
+</code></pre><p>结果</p>
+<pre><code>--二进制--
+10100
+10100
+11111111111111111111111111101100
+-10100
+--八进制--
+24
+24
+37777777754
+-24
+--十六进制--
+14
+14
+ffffffec
+-14
+</code></pre><p><strong>当十进制数为正时，toString()的结果和其他3个函数一样，当值为负时，toString()的结果是直接在正值的结果前面加“-”</strong></p>
+<h3 id="2-其他进制转十进制"><a href="#2-其他进制转十进制" class="headerlink" title="2.其他进制转十进制"></a>2.其他进制转十进制</h3><ul>
+<li>Integer.parseInt(String s, int radix)</li>
+<li>Integer.valueOf(String s, int radix)与上一函数结果相同，内部直接调用了上一函数</li>
+</ul>
+<p><strong>但是需要注意，这两个函数与上面的Integer.toString(int i, int radix)的操作是相反的，参数s是“-101”这种形式的，不是真正的二进制（或八进制、十六进制）表示</strong></p>
+<p>代码</p>
+<pre><code>System.out.println(Integer.parseInt(&quot;-1010&quot;,2));
+System.out.println(Integer.parseInt(&quot;-10000000000000000000000000000000&quot;,2));
+System.out.println(Integer.parseInt(&quot;-0&quot;,2));
+System.out.println(Integer.parseInt(&quot;-12&quot;,8));
+System.out.println(Integer.parseInt(&quot;-a&quot;,16));
+</code></pre><p>结果</p>
+<pre><code>-10
+-2147483648
+0
+-10
+-10
+</code></pre><p><a href="http://aaagu1234.blog.163.com/blog/static/4009371520128206358167/" target="_blank" rel="external">原文链接</a></p>
+<h2 id="位运算基本概念"><a href="#位运算基本概念" class="headerlink" title="位运算基本概念"></a>位运算基本概念</h2><p>位运算是对整数中的位进行测试、置位或移位处理，是对数据进行按位操作的手段<br>Java的位操作数只限于字符和整数，对char、byte或者short进行移位处理时，系统会先将它们转换成一个int，然后再进行移位处理<br>移位运算速度高于乘除运算<br>若进行位逻辑运算的两个操作数的数据长度不相同，则返回值是数据长度较长的数据类型</p>
+<h2 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h2><p><strong>~</strong>的优先级最高，其次是<strong>&lt;&lt;</strong>、<strong>&gt;&gt;</strong>和<strong>&gt;&gt;&gt;</strong>，再次是<strong>＆</strong>，然后是<strong>^</strong>，优先级最低的是<strong>|</strong></p>
+<ol>
+<li><strong>&amp;</strong> —— 按位进行与运算<br>例如：1100&amp;1010=1000<br>可以用0来屏蔽特定的位，也可以用1来取某个数型数中某些特定的位</li>
+<li><strong>~</strong> —— 按位进行取反运算</li>
+<li><strong>|</strong> —— 按位进行或运算<br>例如：1100|1010=1110<br>可以用1来对某个整型数的特定位的值置1</li>
+<li><strong>^</strong> —— 按位进行异或运算<br>例如：1100^1010=0110<br>数a两次异或同一个数b（a=a^b^b）仍然为原值a</li>
+<li><strong>&lt;&lt;</strong> —— 按位左移</li>
+</ol>
+<ul>
+<li>运算符左侧对象左移由右侧指定的位数，低位补0，最高位抛弃</li>
+<li>带符号的左移位运算相当于对左操作数进行乘2运算</li>
+<li>如果移动的位数超过了该类型的最大位数，那么编译器会对移动的位数取模。如对int型移动33位，实际上只移动了33%32=1位。</li>
+<li>如果移进符号位，那么该值将变为负值</li>
+</ul>
+<ol>
+<li><strong>&gt;&gt;</strong> —— 按位右移<br>运算符左侧对象右移由右侧指定的位数<br>若值为正，在最高位插入0；若值为负，在最高位插入1，即移入的最高位和原最高符号位相同<br>带符号的右移位运算相当于对左操作数进行除2运算</li>
+<li><strong>&gt;&gt;&gt;</strong> —— 按位进行无符号右移<br>无论运算符左边的运算对象取值正负，都在最高位插入0</li>
+</ol>
+<h2 id="位运算的应用"><a href="#位运算的应用" class="headerlink" title="位运算的应用"></a>位运算的应用</h2><ol>
+<li>判断int型变量a是奇数还是偶数<br><strong>a&amp;1 = 0</strong> 偶数<br><strong>a&amp;1 = 1</strong> 奇数</li>
+<li>取int型变量a的第k位 (k=0,1,2……sizeof(int))，即 <strong>a &gt;&gt; k &amp; 1</strong></li>
+<li>将int型变量a的第k位清0，即 <strong>a = a &amp; ~ (1 &lt;&lt; k)</strong> </li>
+<li>将int型变量a的第k位置1，即 <strong>a = a | (1 &lt;&lt; k)</strong> </li>
+<li>将int型变量a循环左移k次，即 <strong>a = a &lt;&lt; k | a &gt;&gt; 32 - k</strong>  </li>
+<li>将int型变量a循环右移k次，即 <strong>a = a &gt;&gt; k | a &lt;&lt; 32 - k</strong></li>
+<li><p>求整数的平均值<br>对于两个整数<strong>x,y</strong>，如果用<strong>(x+y)/2</strong>求平均值，会产生溢出，因为<strong>x+y</strong>可能会大于<strong>INT_MAX</strong>，但是我们知道它们的平均值是肯定不会溢出的，我们用如下算法：</p>
+<pre><code>int average(int x, int y)  //返回X,Y的平均值 
+{    
+    return (x&amp;y)+((x^y)&gt;&gt;1); 
+} 
+</code></pre><p>注意结果仅保留整数</p>
+</li>
+<li><p>可以不使用临时变量完成两个值的交换，也可以使某个整型数的特定位的值翻转（0对应的位置不翻转，1对应的位置翻转）<br>代码</p>
+<pre><code>int a = 1;
+int b = 2;
+a ^= b;
+b ^= a;
+a ^= b;
+System.out.println(&quot;a=&quot;+a+&quot; b=&quot;+b);
+</code></pre><p>结果</p>
+<pre><code>a=2 b=1
+</code></pre></li>
+<li><p>对于一个数 x &gt; 0，判断他是不是2的幂</p>
+<pre><code>boolean power2(int x) { 
+    return ((x&amp;(x-1))==0)&amp;&amp;(x!=0)； 
+} 
+</code></pre></li>
+<li><p>计算绝对值</p>
+<p>   int abs( int x ) { </p>
+<pre><code>   int y ; 
+   y = x &gt;&gt; 31 ; 
+   return (x^y)-y ;        //or: (x+y)^y 
+</code></pre><p>   } </p>
+</li>
+<li><p>x 的相反数表示为 <strong>~x + 1</strong></p>
+</li>
+<li><p>给x赋值为a或b中的一个</p>
+<pre><code>   if (x == a) 
+       x = b; 
+   if (x == b) 
+       x = a;
+</code></pre><p>等价于 <strong>x = a ^ b ^ x</strong><br><a href="http://blog.csdn.net/xiaoliuliu2050/article/details/52994805" target="_blank" rel="external">原文链接</a></p>
+</li>
+</ol>
+<p><strong>最后附上位操作技巧的一篇英文文章：</strong><a href="http://graphics.stanford.edu/~seander/bithacks.html" target="_blank" rel="external">Bit Twiddling Hacks</a></p>
+</div><div class="tags"><a href="/tags/Java基础/">Java基础</a><a href="/tags/数据类型/">数据类型</a><a href="/tags/进制转换/">进制转换</a><a href="/tags/位运算/">位运算</a></div><div class="post-share"><div class="bdsharebuttonbox"><span style="float:left;line-height: 28px;height: 28px;font-size:16px;font-weight:blod">分享到：</span><a href="#" data-cmd="more" class="bds_more"></a><a href="#" data-cmd="mshare" title="分享到一键分享" class="bds_mshare"></a><a href="#" data-cmd="fbook" title="分享到Facebook" class="bds_fbook"></a><a href="#" data-cmd="twi" title="分享到Twitter" class="bds_twi"></a><a href="#" data-cmd="linkedin" title="分享到linkedin" class="bds_linkedin"></a><a href="#" data-cmd="youdao" title="分享到有道云笔记" class="bds_youdao"></a><a href="#" data-cmd="evernotecn" title="分享到印象笔记" class="bds_evernotecn"></a><a href="#" data-cmd="weixin" title="分享到微信" class="bds_weixin"></a><a href="#" data-cmd="qzone" title="分享到QQ空间" class="bds_qzone"></a><a href="#" data-cmd="tsina" title="分享到新浪微博" class="bds_tsina"></a></div></div><div class="post-nav"><a href="/2017/10/03/正整数划分问题/" class="next">正整数划分问题</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/06/Java数据类型、进制和位运算学习总结/">Java数据类型、进制和位运算学习总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/03/正整数划分问题/">正整数划分问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/03/网易：游戏任务标记问题/">网易：游戏任务标记问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/03/爬楼梯问题（Fibonacci数列）/">爬楼梯问题（Fibonacci数列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/03/Hexo生成部署博文时报错YAMLException的解决方法/">Hexo生成部署博文时报错YAMLException的解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/30/边界安全防护学习笔记/">边界安全防护学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/30/根据完全二叉树的节点数计算二叉树的深度/">根据完全二叉树的节点数计算二叉树的深度</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/30/笔试编程题注意事项/">笔试编程题注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/OSI安全体系/">OSI安全体系</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/知道创宇研发技能表v3.1/">知道创宇研发技能表v3.1</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/二叉树/" style="font-size: 15px;">二叉树</a> <a href="/tags/散记/" style="font-size: 15px;">散记</a> <a href="/tags/信息安全/" style="font-size: 15px;">信息安全</a> <a href="/tags/找工作/" style="font-size: 15px;">找工作</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/等级保护/" style="font-size: 15px;">等级保护</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/编程/" style="font-size: 15px;">编程</a> <a href="/tags/二进制计算/" style="font-size: 15px;">二进制计算</a> <a href="/tags/递归/" style="font-size: 15px;">递归</a> <a href="/tags/Java基础/" style="font-size: 15px;">Java基础</a> <a href="/tags/数据类型/" style="font-size: 15px;">数据类型</a> <a href="/tags/进制转换/" style="font-size: 15px;">进制转换</a> <a href="/tags/位运算/" style="font-size: 15px;">位运算</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.youngyu.net/" title="YoungYu" target="_blank">YoungYu</a><ul></ul><a href="http://www.icodeyou.com/index1.html" title="icodeyou" target="_blank">icodeyou</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">Baidu Site Haritası</a> |  <a href="/atom.xml">订阅</a> |  <a href="/about/">关于</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次</p><p><span> Copyright &copy;<a href="/." rel="nofollow">Oliver.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script></body></html>

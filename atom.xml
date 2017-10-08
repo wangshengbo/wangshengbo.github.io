@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wangshengbo.me/"/>
-  <updated>2017-10-06T06:50:46.522Z</updated>
+  <updated>2017-10-08T08:22:44.976Z</updated>
   <id>http://wangshengbo.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java中this关键字</title>
+    <link href="http://wangshengbo.me/2017/10/08/Java%E4%B8%ADthis%E5%85%B3%E9%94%AE%E5%AD%97/"/>
+    <id>http://wangshengbo.me/2017/10/08/Java中this关键字/</id>
+    <published>2017-10-08T08:20:40.874Z</published>
+    <updated>2017-10-08T08:22:44.976Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们通常在用Java中的this关键字的时候，都知道this是代表正在调用这个类的方法的当前实例。通常情况下理解this关键字还是很容易的，但是在我初学的时候，有一个疑问却一直不能很清晰的理解，现在慢慢的理解了，就想把它记下来，也许有人和我有相同的疑问，说不定可以帮助到别人。我们还是先简单的看看通常情况下this的作用吧。比如下面的代码：</p><pre><code>public class Leaf {    private int i = 0;    Leaf increment() {        i++;        return this;    }    void print() {        System.out.println(&quot;i = &quot; + i);    }    public static void main(String[] args) {        Leaf x = new Leaf();        x.increment().increment().print();    }}</code></pre><p>在Leaf类的main方法中，我们new了一个Leaf实例x，然后x实例调用increment()方法。如果increment()是普通的方法或者void方法，这个地方就没有什么值得我们研究的了。特殊的是，在increment()方法中，我们return的是一个this，这个this代表的就是我们刚刚创建的x。因为x正在调用increment()方法，所以，increment()方法this就很明显代表的是Leaf的x实例了。</p><p>这看起来没有什么可讨论的，this就是代表的调用该方法的实例x。可是，假如我们把main()函数修改成下面的样子：</p><pre><code>public static void main(String[] args) {    Leaf x = new Leaf();    x.increment().increment().print();    Leaf y = new Leaf();    y.increment().increment().print();}</code></pre><p>以上修改的代码中，我们增加创建了一个Leaf实例y，然后y也连续调用调用了两次increment()。现在问题来了，假如 x,y同时调用的increment()方法，那么this到底能代表谁呢？你可能会觉得这有什么问题，x调用increment()方法，this就代表x， y调用increment()方法，this就代表y。可问题是，当我们讲调用方法的时候，在jvm层面上是找到Leaf类中increment()方法所在的内存地址，然后在java虚拟机栈中创建栈帧，</p><p><img src="http://ox858v6tc.bkt.clouddn.com/Java%E4%B8%ADthis%E5%85%B3%E9%94%AE%E5%AD%97.png" alt="Jvm栈帧"></p><p>然后在栈帧中执行方法里面的代码。现在看到了吧，也就是说，在jvm执行方法层面，没有所谓的x调用，y调用了，那么，方法中的this到底是怎么确定指向哪个实例的呢？</p><p>我们还是来看看Leaf类字节码中是怎么展示的，是不是我们漏了什么，如果我们没有把x实例或者y实例传递到方法里面去，那么，在jvm执行方法的时候，是不可能知道this具体指向哪个实例的。</p><p><img src="http://ox858v6tc.bkt.clouddn.com/Java%E4%B8%ADthis%E5%85%B3%E9%94%AE%E5%AD%972.png" alt="Leaf类字节码"></p><p>到这里，我们看到在increment()方法中，编码中没有参数，但是在字节码里面却显示参数个数为1，仔细想想，结果已经很明显了：jvm在执行编译的时候，在实例方法中，会默认隐藏的传递一个参数，这个参数就是当前调用的实例本身。比如x调用，隐藏就把x传过去，y调用，就把y传过去。所以，我们的this才能在jvm执行方法层面确定到底指向的是谁。</p><p>上面的结论是我们自己推断出来的，有没有那本书对这个有详细的描述呢？《java编程思想》里面，对这块是这样描述的：</p><p><strong>假定我们在一个方法的内部，并希望获得当前对象的句柄。由于那个句柄是由编译器“秘密”传递的，所以没有标识符可用。然而，针对这一目的有个专用的关键字：this。</strong></p><p>在里面讲的这个编译器秘密传递的句柄，就是我们这里的这个隐藏参数。</p><p>到此为止，关于this的描述想必已经很清楚了，我们在jvm层面对它进行了理解。那么，各位有没有兴趣在看下下面的这个例子，想想这个基类B中的this代表了什么呢？</p><pre><code>public class B {    public B() {        System.out.println(this.getClass().getSimpleName());         System.out.println(((A) this).a);     }}public class A extends B {    public int a = 100;          public A() {        a = 200;    }     public static void main(String[] args) {        new A();    }}</code></pre><p>这个例子原本是为了了解java具有继承结构的时候类是怎么完成初始化的，可是这里面的B类中的构造函数比较特殊：B类中的构造函数中的this输出的SimpleName是A。通常我们遇到的情况，B类中的this输出的SimpleName应该是B，可是这里却是A？为什么？ </p><p>在上面我们讲this的过程中，其实已经涉及到这块了，在调用java方法创建栈帧的时候，jvm会秘密的传递一个当前实例。所以，当我们在执行A的构造函数的时候，默认会调用父类B的构造函数，在调用父类B构造函数的时候，秘密的传进去的当前实例是A的实例——因为是在A的构造函数中调用的B，所以，这个地方的this反而代表了A。</p><p>本文全文转载自：<a href="https://my.oschina.net/kalo/blog/333202" target="_blank" rel="external">kalo的博客</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;我们通常在用Java中的this关键字的时候，都知道this是代表正在调用这个类的方法的当前实例。通常情况下理解this关键字还是很容易的，但是在我初学的时候，有一个疑问却一直不能很清晰的理解，现在慢慢的理解了，就想把它记下来，也许有人和我有相同的疑问，说不定可以帮助到别人
+      
+    
+    </summary>
+    
+    
+      <category term="Java基础" scheme="http://wangshengbo.me/tags/Java%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="this关键字" scheme="http://wangshengbo.me/tags/this%E5%85%B3%E9%94%AE%E5%AD%97/"/>
+    
+  </entry>
   
   <entry>
     <title>Java数据类型、进制和位运算学习总结</title>
@@ -175,6 +200,26 @@
   </entry>
   
   <entry>
+    <title>笔试编程题注意事项</title>
+    <link href="http://wangshengbo.me/2017/09/30/%E7%AC%94%E8%AF%95%E7%BC%96%E7%A8%8B%E9%A2%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
+    <id>http://wangshengbo.me/2017/09/30/笔试编程题注意事项/</id>
+    <published>2017-09-29T16:00:00.000Z</published>
+    <updated>2017-10-02T08:29:46.064Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="牛客网编程题注意事项"><a href="#牛客网编程题注意事项" class="headerlink" title="牛客网编程题注意事项"></a>牛客网编程题注意事项</h2><h4 id="Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"><a href="#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误" class="headerlink" title="Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"></a>Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误</h4><p>A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理<br><a id="more"></a></p><h6 id="C语言代码"><a href="#C语言代码" class="headerlink" title="C语言代码"></a>C语言代码</h6><pre><code>#include &lt;stdio.h&gt;int main() {    int a,b;    while(scanf(&quot;%d %d&quot;,&amp;a, &amp;b) != EOF)    printf(&quot;%d&quot;,a+b);    return 0;}</code></pre><h6 id="JAVA代码"><a href="#JAVA代码" class="headerlink" title="JAVA代码"></a>JAVA代码</h6><pre><code>import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;/* * 使用循环输入输出处理一次多组测试，记得在循环内清空数组、map、set等 * 注意输出结果的行末空格！！输出完全后要换行 * 注意算法时间复杂度 */public class Main {    public static void main(String[] args)throws IOException {        Main main = new Main();        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));        String str;        while ((str = scanner.readLine()) != null) {        //循环处理输入            String[] strings = str.split(&quot; &quot;);            main.name();            for (String string : strings) {                System.out.println(string);            }        }    }    public void name() {       //除了输入输出以外的处理逻辑都放在方法里    }}</code></pre><h4 id="Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误"><a href="#Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误" class="headerlink" title="Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误"></a>Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误</h4><p>A: 因为Java文件名和类名需要保持一致。<br>1、如果编程题已经提供了类和要编写代码的方法，请不要擅自给方法加上static，也不要擅自修改类的名字。也不要给代码增加任何package信息。<br>2、对于没有提供任何辅助代码的编程题，请确认类的名字是Main</p><h4 id="Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"><a href="#Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时" class="headerlink" title="Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"></a>Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时</h4><p>A:牛客网对每个编程题的运行时间都有限制，一般是限制在1秒，牛客网后台判题的机器显然不如的你的台式机强劲，所以碰到超时请尽量优化你的代码效率。当然也有可能是你代码对某个测试用例死循环了</p><h4 id="Q-为什么代码会提示答案正确（提交异常）"><a href="#Q-为什么代码会提示答案正确（提交异常）" class="headerlink" title="Q:为什么代码会提示答案正确（提交异常）"></a>Q:为什么代码会提示答案正确（提交异常）</h4><p>A:这种情况代码本题你的结果是已AC，但是有点小问题：<br>1、牛客网对提交的代码会做相似度的判断，如果发现你的代码通过的测试用例同时和已有代码相似度过高则会给出答案正确（提交异常）的提示<br>2、根据题目的难易程度会对通过代码的提交频率进行控制，如果你提交通过代码的间隔太小，我们也认为有作弊可能，也会提示提交异常</p><h4 id="Q-运行错误是什么情况"><a href="#Q-运行错误是什么情况" class="headerlink" title="Q:运行错误是什么情况"></a>Q:运行错误是什么情况</h4><p>A:运行错误一般都是数组越界非法访问，野指针乱访问，空指针乱访问等情况造成代码奔溃</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;牛客网编程题注意事项&quot;&gt;&lt;a href=&quot;#牛客网编程题注意事项&quot; class=&quot;headerlink&quot; title=&quot;牛客网编程题注意事项&quot;&gt;&lt;/a&gt;牛客网编程题注意事项&lt;/h2&gt;&lt;h4 id=&quot;Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;a href=&quot;#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot; class=&quot;headerlink&quot; title=&quot;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;/a&gt;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&lt;/h4&gt;&lt;p&gt;A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="找工作" scheme="http://wangshengbo.me/tags/%E6%89%BE%E5%B7%A5%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>根据完全二叉树的节点数计算二叉树的深度</title>
     <link href="http://wangshengbo.me/2017/09/30/%E6%A0%B9%E6%8D%AE%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/"/>
     <id>http://wangshengbo.me/2017/09/30/根据完全二叉树的节点数计算二叉树的深度/</id>
@@ -199,26 +244,6 @@
       <category term="二叉树" scheme="http://wangshengbo.me/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
       <category term="编程" scheme="http://wangshengbo.me/tags/%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>笔试编程题注意事项</title>
-    <link href="http://wangshengbo.me/2017/09/30/%E7%AC%94%E8%AF%95%E7%BC%96%E7%A8%8B%E9%A2%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
-    <id>http://wangshengbo.me/2017/09/30/笔试编程题注意事项/</id>
-    <published>2017-09-29T16:00:00.000Z</published>
-    <updated>2017-10-02T08:29:46.064Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="牛客网编程题注意事项"><a href="#牛客网编程题注意事项" class="headerlink" title="牛客网编程题注意事项"></a>牛客网编程题注意事项</h2><h4 id="Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"><a href="#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误" class="headerlink" title="Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"></a>Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误</h4><p>A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理<br><a id="more"></a></p><h6 id="C语言代码"><a href="#C语言代码" class="headerlink" title="C语言代码"></a>C语言代码</h6><pre><code>#include &lt;stdio.h&gt;int main() {    int a,b;    while(scanf(&quot;%d %d&quot;,&amp;a, &amp;b) != EOF)    printf(&quot;%d&quot;,a+b);    return 0;}</code></pre><h6 id="JAVA代码"><a href="#JAVA代码" class="headerlink" title="JAVA代码"></a>JAVA代码</h6><pre><code>import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;/* * 使用循环输入输出处理一次多组测试，记得在循环内清空数组、map、set等 * 注意输出结果的行末空格！！输出完全后要换行 * 注意算法时间复杂度 */public class Main {    public static void main(String[] args)throws IOException {        Main main = new Main();        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));        String str;        while ((str = scanner.readLine()) != null) {        //循环处理输入            String[] strings = str.split(&quot; &quot;);            main.name();            for (String string : strings) {                System.out.println(string);            }        }    }    public void name() {       //除了输入输出以外的处理逻辑都放在方法里    }}</code></pre><h4 id="Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误"><a href="#Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误" class="headerlink" title="Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误"></a>Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误</h4><p>A: 因为Java文件名和类名需要保持一致。<br>1、如果编程题已经提供了类和要编写代码的方法，请不要擅自给方法加上static，也不要擅自修改类的名字。也不要给代码增加任何package信息。<br>2、对于没有提供任何辅助代码的编程题，请确认类的名字是Main</p><h4 id="Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"><a href="#Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时" class="headerlink" title="Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"></a>Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时</h4><p>A:牛客网对每个编程题的运行时间都有限制，一般是限制在1秒，牛客网后台判题的机器显然不如的你的台式机强劲，所以碰到超时请尽量优化你的代码效率。当然也有可能是你代码对某个测试用例死循环了</p><h4 id="Q-为什么代码会提示答案正确（提交异常）"><a href="#Q-为什么代码会提示答案正确（提交异常）" class="headerlink" title="Q:为什么代码会提示答案正确（提交异常）"></a>Q:为什么代码会提示答案正确（提交异常）</h4><p>A:这种情况代码本题你的结果是已AC，但是有点小问题：<br>1、牛客网对提交的代码会做相似度的判断，如果发现你的代码通过的测试用例同时和已有代码相似度过高则会给出答案正确（提交异常）的提示<br>2、根据题目的难易程度会对通过代码的提交频率进行控制，如果你提交通过代码的间隔太小，我们也认为有作弊可能，也会提示提交异常</p><h4 id="Q-运行错误是什么情况"><a href="#Q-运行错误是什么情况" class="headerlink" title="Q:运行错误是什么情况"></a>Q:运行错误是什么情况</h4><p>A:运行错误一般都是数组越界非法访问，野指针乱访问，空指针乱访问等情况造成代码奔溃</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;牛客网编程题注意事项&quot;&gt;&lt;a href=&quot;#牛客网编程题注意事项&quot; class=&quot;headerlink&quot; title=&quot;牛客网编程题注意事项&quot;&gt;&lt;/a&gt;牛客网编程题注意事项&lt;/h2&gt;&lt;h4 id=&quot;Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;a href=&quot;#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot; class=&quot;headerlink&quot; title=&quot;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;/a&gt;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&lt;/h4&gt;&lt;p&gt;A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="找工作" scheme="http://wangshengbo.me/tags/%E6%89%BE%E5%B7%A5%E4%BD%9C/"/>
     
   </entry>
   

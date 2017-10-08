@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="王圣博的个人博客"><meta name="keywords" content="王圣博, 博客, 计算机, 编程, 安全, JAVA"><title>Java中this关键字 | Oliver's Blog</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Java中this关键字</h1><a id="logo" href="/.">Oliver's Blog</a><p class="description">根本没有正确的选择，只能靠奋斗来使当初的选择显的正确</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Java中this关键字</h1><div class="post-meta"><a href="/2017/10/08/Java中this关键字/#comments" class="comment-count"></a><p><span class="date">Oct 08, 2017</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><p>我们通常在用Java中的this关键字的时候，都知道this是代表正在调用这个类的方法的当前实例。通常情况下理解this关键字还是很容易的，但是在我初学的时候，有一个疑问却一直不能很清晰的理解，现在慢慢的理解了，就想把它记下来，也许有人和我有相同的疑问，说不定可以帮助到别人。我们还是先简单的看看通常情况下this的作用吧。比如下面的代码：</p>
+<pre><code>public class Leaf {
+    private int i = 0;
+    Leaf increment() {
+        i++;
+        return this;
+    }
+    void print() {
+        System.out.println(&quot;i = &quot; + i);
+    }
+    public static void main(String[] args) {
+        Leaf x = new Leaf();
+        x.increment().increment().print();
+    }
+}
+</code></pre><p>在Leaf类的main方法中，我们new了一个Leaf实例x，然后x实例调用increment()方法。如果increment()是普通的方法或者void方法，这个地方就没有什么值得我们研究的了。特殊的是，在increment()方法中，我们return的是一个this，这个this代表的就是我们刚刚创建的x。因为x正在调用increment()方法，所以，increment()方法this就很明显代表的是Leaf的x实例了。</p>
+<p>这看起来没有什么可讨论的，this就是代表的调用该方法的实例x。可是，假如我们把main()函数修改成下面的样子：</p>
+<pre><code>public static void main(String[] args) {
+    Leaf x = new Leaf();
+    x.increment().increment().print();
+
+    Leaf y = new Leaf();
+    y.increment().increment().print();
+}
+</code></pre><p>以上修改的代码中，我们增加创建了一个Leaf实例y，然后y也连续调用调用了两次increment()。现在问题来了，假如 x,y同时调用的increment()方法，那么this到底能代表谁呢？你可能会觉得这有什么问题，x调用increment()方法，this就代表x， y调用increment()方法，this就代表y。可问题是，当我们讲调用方法的时候，在jvm层面上是找到Leaf类中increment()方法所在的内存地址，然后在java虚拟机栈中创建栈帧，</p>
+<p><img src="http://ox858v6tc.bkt.clouddn.com/Java%E4%B8%ADthis%E5%85%B3%E9%94%AE%E5%AD%97.png" alt="Jvm栈帧"></p>
+<p>然后在栈帧中执行方法里面的代码。现在看到了吧，也就是说，在jvm执行方法层面，没有所谓的x调用，y调用了，那么，方法中的this到底是怎么确定指向哪个实例的呢？</p>
+<p>我们还是来看看Leaf类字节码中是怎么展示的，是不是我们漏了什么，如果我们没有把x实例或者y实例传递到方法里面去，那么，在jvm执行方法的时候，是不可能知道this具体指向哪个实例的。</p>
+<p><img src="http://ox858v6tc.bkt.clouddn.com/Java%E4%B8%ADthis%E5%85%B3%E9%94%AE%E5%AD%972.png" alt="Leaf类字节码"></p>
+<p>到这里，我们看到在increment()方法中，编码中没有参数，但是在字节码里面却显示参数个数为1，仔细想想，结果已经很明显了：jvm在执行编译的时候，在实例方法中，会默认隐藏的传递一个参数，这个参数就是当前调用的实例本身。比如x调用，隐藏就把x传过去，y调用，就把y传过去。所以，我们的this才能在jvm执行方法层面确定到底指向的是谁。</p>
+<p>上面的结论是我们自己推断出来的，有没有那本书对这个有详细的描述呢？《java编程思想》里面，对这块是这样描述的：</p>
+<p><strong>假定我们在一个方法的内部，并希望获得当前对象的句柄。由于那个句柄是由编译器“秘密”传递的，所以没有标识符可用。然而，针对这一目的有个专用的关键字：this。</strong></p>
+<p>在里面讲的这个编译器秘密传递的句柄，就是我们这里的这个隐藏参数。</p>
+<p>到此为止，关于this的描述想必已经很清楚了，我们在jvm层面对它进行了理解。那么，各位有没有兴趣在看下下面的这个例子，想想这个基类B中的this代表了什么呢？</p>
+<pre><code>public class B {
+    public B() {
+        System.out.println(this.getClass().getSimpleName()); 
+        System.out.println(((A) this).a); 
+    }
+}
+public class A extends B {
+    public int a = 100;      
+    public A() {
+        a = 200;
+    } 
+    public static void main(String[] args) {
+        new A();
+    }
+}
+</code></pre><p>这个例子原本是为了了解java具有继承结构的时候类是怎么完成初始化的，可是这里面的B类中的构造函数比较特殊：B类中的构造函数中的this输出的SimpleName是A。通常我们遇到的情况，B类中的this输出的SimpleName应该是B，可是这里却是A？为什么？ </p>
+<p>在上面我们讲this的过程中，其实已经涉及到这块了，在调用java方法创建栈帧的时候，jvm会秘密的传递一个当前实例。所以，当我们在执行A的构造函数的时候，默认会调用父类B的构造函数，在调用父类B构造函数的时候，秘密的传进去的当前实例是A的实例——因为是在A的构造函数中调用的B，所以，这个地方的this反而代表了A。</p>
+<p>本文全文转载自：<a href="https://my.oschina.net/kalo/blog/333202" target="_blank" rel="external">kalo的博客</a></p>
+</div><div class="tags"><a href="/tags/Java基础/">Java基础</a><a href="/tags/this关键字/">this关键字</a></div><div class="post-share"><div class="bdsharebuttonbox"><span style="float:left;line-height: 28px;height: 28px;font-size:16px;font-weight:blod">分享到：</span><a href="#" data-cmd="more" class="bds_more"></a><a href="#" data-cmd="mshare" title="分享到一键分享" class="bds_mshare"></a><a href="#" data-cmd="fbook" title="分享到Facebook" class="bds_fbook"></a><a href="#" data-cmd="twi" title="分享到Twitter" class="bds_twi"></a><a href="#" data-cmd="linkedin" title="分享到linkedin" class="bds_linkedin"></a><a href="#" data-cmd="youdao" title="分享到有道云笔记" class="bds_youdao"></a><a href="#" data-cmd="evernotecn" title="分享到印象笔记" class="bds_evernotecn"></a><a href="#" data-cmd="weixin" title="分享到微信" class="bds_weixin"></a><a href="#" data-cmd="qzone" title="分享到QQ空间" class="bds_qzone"></a><a href="#" data-cmd="tsina" title="分享到新浪微博" class="bds_tsina"></a></div></div><div class="post-nav"><a href="/2017/10/06/Java数据类型、进制和位运算学习总结/" class="next">Java数据类型、进制和位运算学习总结</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/08/Java中this关键字/">Java中this关键字</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/06/Java数据类型、进制和位运算学习总结/">Java数据类型、进制和位运算学习总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/03/正整数划分问题/">正整数划分问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/03/网易：游戏任务标记问题/">网易：游戏任务标记问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/03/爬楼梯问题（Fibonacci数列）/">爬楼梯问题（Fibonacci数列）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/03/Hexo生成部署博文时报错YAMLException的解决方法/">Hexo生成部署博文时报错YAMLException的解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/30/边界安全防护学习笔记/">边界安全防护学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/30/笔试编程题注意事项/">笔试编程题注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/30/根据完全二叉树的节点数计算二叉树的深度/">根据完全二叉树的节点数计算二叉树的深度</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/OSI安全体系/">OSI安全体系</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/二叉树/" style="font-size: 15px;">二叉树</a> <a href="/tags/散记/" style="font-size: 15px;">散记</a> <a href="/tags/信息安全/" style="font-size: 15px;">信息安全</a> <a href="/tags/找工作/" style="font-size: 15px;">找工作</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/等级保护/" style="font-size: 15px;">等级保护</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/编程/" style="font-size: 15px;">编程</a> <a href="/tags/二进制计算/" style="font-size: 15px;">二进制计算</a> <a href="/tags/递归/" style="font-size: 15px;">递归</a> <a href="/tags/Java基础/" style="font-size: 15px;">Java基础</a> <a href="/tags/数据类型/" style="font-size: 15px;">数据类型</a> <a href="/tags/进制转换/" style="font-size: 15px;">进制转换</a> <a href="/tags/位运算/" style="font-size: 15px;">位运算</a> <a href="/tags/this关键字/" style="font-size: 15px;">this关键字</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.youngyu.net/" title="YoungYu" target="_blank">YoungYu</a><ul></ul><a href="http://www.icodeyou.com/index1.html" title="icodeyou" target="_blank">icodeyou</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">Baidu Site Haritası</a> |  <a href="/atom.xml">订阅</a> |  <a href="/about/">关于</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次</p><p><span> Copyright &copy;<a href="/." rel="nofollow">Oliver.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script></body></html>

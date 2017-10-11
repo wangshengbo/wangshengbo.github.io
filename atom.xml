@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wangshengbo.me/"/>
-  <updated>2017-10-08T08:22:44.976Z</updated>
+  <updated>2017-10-11T07:47:37.171Z</updated>
   <id>http://wangshengbo.me/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>最少转机问题</title>
+    <link href="http://wangshengbo.me/2017/10/11/%E6%9C%80%E5%B0%91%E8%BD%AC%E6%9C%BA%E9%97%AE%E9%A2%98/"/>
+    <id>http://wangshengbo.me/2017/10/11/最少转机问题/</id>
+    <published>2017-10-11T07:45:53.232Z</published>
+    <updated>2017-10-11T07:47:37.171Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在做去哪儿网的2017秋招笔试题时遇到这样一道问题：<br><strong>最少转机问题：</strong><br>某国有n个城市，有m条国内航线，航线都是可往返的，已知乘客居住的城市和想到达的城市，请给出最小转机次数<br>如果两城市之间不可到达，则返回DISCONNECTED</p><p>输入：第一行两个数n，m（2&lt;=n&lt;=100,1&lt;=m&lt;=100）；紧随其后的是两个城市的名字，代表居住城市和想要到达的城市。接下来m行，分别为各个航线间的两个城市（城市名称间以空格隔开）<br>输出：最少转机次数</p><p>样例输入：</p><pre><code>5 5 luoyang jinlingchangan luoyangluoyang jiankangluoyang langyejiankang langyejiankang jinling</code></pre><p>样例输出：</p><pre><code>2</code></pre><p><strong>分析：</strong><br>基本思路是：从源城市开始，以步长为1扫描航线信息表，得到当前城市在一次转机之后能到达的城市。直到到达目标城市或没有其他城市可以到达。即：一轮扫描过后得到源城市转机一次能到达的所有城市，两轮扫描过后得到源城市转机两次能到达的所有城市……以此类推<br><strong>Java代码：</strong></p><pre><code>import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;import java.util.*;public class MinTransfer {    public static int n;    public static int m;    public static int result;// 转机次数    public static void main(String[] args) throws IOException {        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));        String str;        while ((str = scanner.readLine()) != null) {            String[] input = str.split(&quot; &quot;);            n = Integer.parseInt(input[0]);            m = Integer.parseInt(input[1]);            String home = input[2];            String target = input[3];            String[][] lines = new String[m][2];// 航线信息            for (int i = 0; i &lt; m; i++) {                str = scanner.readLine();                String[] line = str.split(&quot; &quot;);                lines[i][0] = line[0];                lines[i][1] = line[1];            }            result = 0;            int num = getMinNum(home, target, lines);            if (num == 0) {                System.out.println(&quot;DISCONNECTED&quot;);            } else {                System.out.println(num);            }        }    }    public static int getMinNum(String home, String target, String[][] lines) {        /*         * 根据源城市、目的城市和航线信息返回最少的转机次数，0代表目的不可达         */        ArrayList&lt;String&gt; citys = new ArrayList&lt;String&gt;();// 存放扫描过的城市        citys.add(home);// 将源城市加入城市列表        int flag = 0;// 记录每一轮扫描过后的指针        while (true) {// 根据从源城市到可达城市的航线远近，从近到远扫描可达城市，存储在citys中            result++;// 每开始一轮扫描，则转机数加1            int j = flag;            int x = citys.size();            for (; j &lt; x; j++) {// 循环citys中的城市                for (int i = 0; i &lt; m; i++) {// 循环检查航线信息，找出当前城市的可达城市，存在citys中                    if (lines[i][0] != null &amp;&amp; lines[i][0].equals(citys.get(j))) {                        if (lines[i][1].equals(target)) {// 如果可达城市恰好为目标城市，则返回转机次数                            return result;                        }                        citys.add(lines[i][1]);                        lines[i][0] = null;// 扫描过的航线信息置空，防止重复扫描                        lines[i][1] = null;                    } else if (lines[i][1] != null &amp;&amp; lines[i][1].equals(citys.get(j))) {                        if (lines[i][0].equals(target)) {                            return result;                        }                        citys.add(lines[i][0]);                        lines[i][0] = null;                        lines[i][1] = null;                    }                }            }            if (j &gt;= citys.size()) {// 若无可扫描的城市，说明目的城市不可达                return 0;            }            flag = j;// 记录本轮扫描结束时的指针        }    }}</code></pre><p>此题目也是我做在线笔试题以来第一次在规定时间内AC的一道题目，特此记录</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天在做去哪儿网的2017秋招笔试题时遇到这样一道问题：&lt;br&gt;&lt;strong&gt;最少转机问题：&lt;/strong&gt;&lt;br&gt;某国有n个城市，有m条国内航线，航线都是可往返的，已知乘客居住的城市和想到达的城市，请给出最小转机次数&lt;br&gt;如果两城市之间不可到达，则返回DISCONN
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://wangshengbo.me/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="编程" scheme="http://wangshengbo.me/tags/%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="动态规划" scheme="http://wangshengbo.me/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
   
   <entry>
     <title>Java中this关键字</title>
@@ -200,26 +227,6 @@
   </entry>
   
   <entry>
-    <title>笔试编程题注意事项</title>
-    <link href="http://wangshengbo.me/2017/09/30/%E7%AC%94%E8%AF%95%E7%BC%96%E7%A8%8B%E9%A2%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
-    <id>http://wangshengbo.me/2017/09/30/笔试编程题注意事项/</id>
-    <published>2017-09-29T16:00:00.000Z</published>
-    <updated>2017-10-02T08:29:46.064Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="牛客网编程题注意事项"><a href="#牛客网编程题注意事项" class="headerlink" title="牛客网编程题注意事项"></a>牛客网编程题注意事项</h2><h4 id="Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"><a href="#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误" class="headerlink" title="Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"></a>Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误</h4><p>A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理<br><a id="more"></a></p><h6 id="C语言代码"><a href="#C语言代码" class="headerlink" title="C语言代码"></a>C语言代码</h6><pre><code>#include &lt;stdio.h&gt;int main() {    int a,b;    while(scanf(&quot;%d %d&quot;,&amp;a, &amp;b) != EOF)    printf(&quot;%d&quot;,a+b);    return 0;}</code></pre><h6 id="JAVA代码"><a href="#JAVA代码" class="headerlink" title="JAVA代码"></a>JAVA代码</h6><pre><code>import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;/* * 使用循环输入输出处理一次多组测试，记得在循环内清空数组、map、set等 * 注意输出结果的行末空格！！输出完全后要换行 * 注意算法时间复杂度 */public class Main {    public static void main(String[] args)throws IOException {        Main main = new Main();        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));        String str;        while ((str = scanner.readLine()) != null) {        //循环处理输入            String[] strings = str.split(&quot; &quot;);            main.name();            for (String string : strings) {                System.out.println(string);            }        }    }    public void name() {       //除了输入输出以外的处理逻辑都放在方法里    }}</code></pre><h4 id="Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误"><a href="#Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误" class="headerlink" title="Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误"></a>Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误</h4><p>A: 因为Java文件名和类名需要保持一致。<br>1、如果编程题已经提供了类和要编写代码的方法，请不要擅自给方法加上static，也不要擅自修改类的名字。也不要给代码增加任何package信息。<br>2、对于没有提供任何辅助代码的编程题，请确认类的名字是Main</p><h4 id="Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"><a href="#Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时" class="headerlink" title="Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"></a>Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时</h4><p>A:牛客网对每个编程题的运行时间都有限制，一般是限制在1秒，牛客网后台判题的机器显然不如的你的台式机强劲，所以碰到超时请尽量优化你的代码效率。当然也有可能是你代码对某个测试用例死循环了</p><h4 id="Q-为什么代码会提示答案正确（提交异常）"><a href="#Q-为什么代码会提示答案正确（提交异常）" class="headerlink" title="Q:为什么代码会提示答案正确（提交异常）"></a>Q:为什么代码会提示答案正确（提交异常）</h4><p>A:这种情况代码本题你的结果是已AC，但是有点小问题：<br>1、牛客网对提交的代码会做相似度的判断，如果发现你的代码通过的测试用例同时和已有代码相似度过高则会给出答案正确（提交异常）的提示<br>2、根据题目的难易程度会对通过代码的提交频率进行控制，如果你提交通过代码的间隔太小，我们也认为有作弊可能，也会提示提交异常</p><h4 id="Q-运行错误是什么情况"><a href="#Q-运行错误是什么情况" class="headerlink" title="Q:运行错误是什么情况"></a>Q:运行错误是什么情况</h4><p>A:运行错误一般都是数组越界非法访问，野指针乱访问，空指针乱访问等情况造成代码奔溃</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;牛客网编程题注意事项&quot;&gt;&lt;a href=&quot;#牛客网编程题注意事项&quot; class=&quot;headerlink&quot; title=&quot;牛客网编程题注意事项&quot;&gt;&lt;/a&gt;牛客网编程题注意事项&lt;/h2&gt;&lt;h4 id=&quot;Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;a href=&quot;#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot; class=&quot;headerlink&quot; title=&quot;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;/a&gt;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&lt;/h4&gt;&lt;p&gt;A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="找工作" scheme="http://wangshengbo.me/tags/%E6%89%BE%E5%B7%A5%E4%BD%9C/"/>
-    
-  </entry>
-  
-  <entry>
     <title>根据完全二叉树的节点数计算二叉树的深度</title>
     <link href="http://wangshengbo.me/2017/09/30/%E6%A0%B9%E6%8D%AE%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E6%95%B0%E8%AE%A1%E7%AE%97%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/"/>
     <id>http://wangshengbo.me/2017/09/30/根据完全二叉树的节点数计算二叉树的深度/</id>
@@ -244,6 +251,26 @@
       <category term="二叉树" scheme="http://wangshengbo.me/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
       <category term="编程" scheme="http://wangshengbo.me/tags/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>笔试编程题注意事项</title>
+    <link href="http://wangshengbo.me/2017/09/30/%E7%AC%94%E8%AF%95%E7%BC%96%E7%A8%8B%E9%A2%98%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
+    <id>http://wangshengbo.me/2017/09/30/笔试编程题注意事项/</id>
+    <published>2017-09-29T16:00:00.000Z</published>
+    <updated>2017-10-02T08:29:46.064Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="牛客网编程题注意事项"><a href="#牛客网编程题注意事项" class="headerlink" title="牛客网编程题注意事项"></a>牛客网编程题注意事项</h2><h4 id="Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"><a href="#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误" class="headerlink" title="Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误"></a>Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误</h4><p>A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理<br><a id="more"></a></p><h6 id="C语言代码"><a href="#C语言代码" class="headerlink" title="C语言代码"></a>C语言代码</h6><pre><code>#include &lt;stdio.h&gt;int main() {    int a,b;    while(scanf(&quot;%d %d&quot;,&amp;a, &amp;b) != EOF)    printf(&quot;%d&quot;,a+b);    return 0;}</code></pre><h6 id="JAVA代码"><a href="#JAVA代码" class="headerlink" title="JAVA代码"></a>JAVA代码</h6><pre><code>import java.io.BufferedReader;import java.io.IOException;import java.io.InputStreamReader;/* * 使用循环输入输出处理一次多组测试，记得在循环内清空数组、map、set等 * 注意输出结果的行末空格！！输出完全后要换行 * 注意算法时间复杂度 */public class Main {    public static void main(String[] args)throws IOException {        Main main = new Main();        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));        String str;        while ((str = scanner.readLine()) != null) {        //循环处理输入            String[] strings = str.split(&quot; &quot;);            main.name();            for (String string : strings) {                System.out.println(string);            }        }    }    public void name() {       //除了输入输出以外的处理逻辑都放在方法里    }}</code></pre><h4 id="Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误"><a href="#Q-为什么Java代码在我本机运行正常，提交到牛客网报编译错误" class="headerlink" title="Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误"></a>Q:为什么Java代码在我本机运行正常，提交到牛客网报编译错误</h4><p>A: 因为Java文件名和类名需要保持一致。<br>1、如果编程题已经提供了类和要编写代码的方法，请不要擅自给方法加上static，也不要擅自修改类的名字。也不要给代码增加任何package信息。<br>2、对于没有提供任何辅助代码的编程题，请确认类的名字是Main</p><h4 id="Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"><a href="#Q-为什么我的代码在本机运行正常，提交到牛客网总是报运行超时" class="headerlink" title="Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时"></a>Q:为什么我的代码在本机运行正常，提交到牛客网总是报运行超时</h4><p>A:牛客网对每个编程题的运行时间都有限制，一般是限制在1秒，牛客网后台判题的机器显然不如的你的台式机强劲，所以碰到超时请尽量优化你的代码效率。当然也有可能是你代码对某个测试用例死循环了</p><h4 id="Q-为什么代码会提示答案正确（提交异常）"><a href="#Q-为什么代码会提示答案正确（提交异常）" class="headerlink" title="Q:为什么代码会提示答案正确（提交异常）"></a>Q:为什么代码会提示答案正确（提交异常）</h4><p>A:这种情况代码本题你的结果是已AC，但是有点小问题：<br>1、牛客网对提交的代码会做相似度的判断，如果发现你的代码通过的测试用例同时和已有代码相似度过高则会给出答案正确（提交异常）的提示<br>2、根据题目的难易程度会对通过代码的提交频率进行控制，如果你提交通过代码的间隔太小，我们也认为有作弊可能，也会提示提交异常</p><h4 id="Q-运行错误是什么情况"><a href="#Q-运行错误是什么情况" class="headerlink" title="Q:运行错误是什么情况"></a>Q:运行错误是什么情况</h4><p>A:运行错误一般都是数组越界非法访问，野指针乱访问，空指针乱访问等情况造成代码奔溃</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;牛客网编程题注意事项&quot;&gt;&lt;a href=&quot;#牛客网编程题注意事项&quot; class=&quot;headerlink&quot; title=&quot;牛客网编程题注意事项&quot;&gt;&lt;/a&gt;牛客网编程题注意事项&lt;/h2&gt;&lt;h4 id=&quot;Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;a href=&quot;#Q-为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot; class=&quot;headerlink&quot; title=&quot;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&quot;&gt;&lt;/a&gt;Q:为什么代码在我本机可以通过，提交到牛客网总是提示答案错误&lt;/h4&gt;&lt;p&gt;A:牛客网的每个编程题都有10-50组测试数据，你的代码在本机可以通过仅仅是通过了样例数据，可能存在边界条件考虑不周导致更多的测试数据没有通过，所以会返回答案错误。还有一种可能是你的代码没有处理多个测试用例，例如A+B的代码需要while循环处理&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="找工作" scheme="http://wangshengbo.me/tags/%E6%89%BE%E5%B7%A5%E4%BD%9C/"/>
     
   </entry>
   

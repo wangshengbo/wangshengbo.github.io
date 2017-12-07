@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wangshengbo.me/"/>
-  <updated>2017-11-10T03:11:54.160Z</updated>
+  <updated>2017-12-07T07:48:19.080Z</updated>
   <id>http://wangshengbo.me/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>OPNET仿真报错LNK1112</title>
+    <link href="http://wangshengbo.me/2017/12/07/OPNET%E6%8A%A5%E9%94%991112/"/>
+    <id>http://wangshengbo.me/2017/12/07/OPNET报错1112/</id>
+    <published>2017-12-07T07:45:43.035Z</published>
+    <updated>2017-12-07T07:48:19.080Z</updated>
+    
+    <content type="html"><![CDATA[<p>在OPNET软件运行仿真时如果出现下图错误：<br><img src="http://ox858v6tc.bkt.clouddn.com/OPNET_error_1112.png" alt="此处输入图片的描述"></p><a id="more"></a><p>解决方法：<br>打开OPNET的<strong>Edit-&gt;Preferences</strong>，搜索<strong>repositories</strong>，双击<strong>Network Simulation Repositories</strong>的Value，点击左侧的<strong>empty</strong>，点击右边<strong>Insert</strong>，输入<strong>stdmod</strong>，然后点击<strong>OK</strong></p><p>再次运行仿真，出现下图，说明运行成功<br><img src="http://ox858v6tc.bkt.clouddn.com/OPNET_complete.png" alt="此处输入图片的描述"></p><h1 id="祝你好运"><a href="#祝你好运" class="headerlink" title="祝你好运^-^"></a>祝你好运^-^</h1>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在OPNET软件运行仿真时如果出现下图错误：&lt;br&gt;&lt;img src=&quot;http://ox858v6tc.bkt.clouddn.com/OPNET_error_1112.png&quot; alt=&quot;此处输入图片的描述&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="仿真" scheme="http://wangshengbo.me/tags/%E4%BB%BF%E7%9C%9F/"/>
+    
+      <category term="OPNET" scheme="http://wangshengbo.me/tags/OPNET/"/>
+    
+  </entry>
   
   <entry>
     <title>使用Eclipse+Maven+Tomcat+SpringMVC搭建WebApp项目</title>
